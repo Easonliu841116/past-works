@@ -1,0 +1,186 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+*, html, body{
+    font-family: PingFang TC, Helvetica Neue, Microsoft JhengHei;
+    box-sizing: border-box;
+    color: #2EB738;
+}
+
+.container{
+    width: 1280px;
+    height: 1372px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #F0F0F0;
+    position: relative;
+}
+
+/*主內容*/
+
+.flexWrap{
+    display:flex;
+    flex-wrap: wrap;
+    width: 1110px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+}
+
+
+.main{
+    width: 350px;
+    height: 366px;
+    background-color: #fff;
+    display: inline-flex;
+    margin-top: 40px;
+    border-radius: 20% 0 20% 0;
+    box-shadow: 0 3px 10px #D8D8D8;
+    justify-content: center;
+    align-items: center;
+    position: relative; 
+}
+
+.list{
+    width: 268px;
+    height: 225px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    margin-left:20px;
+}
+
+.main h2{
+    font-size: 128px;
+    display: inline;
+    line-height: 100px;
+    font-weight: bold;
+    text-shadow: 4px 3px 0 #F0F0F0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+.main li{
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+/*標題css*/
+
+.main1{
+    display: none;
+}
+
+.title{
+    background-color: inherit;
+    box-shadow: 0 0 0 0;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.titleWrap{
+    border-top: 1.5px solid #2EB738;
+    border-bottom: 1.5px solid #2EB738;
+    margin-top:4px;
+    padding-top: 122px;
+    padding-bottom: 122px;
+}
+
+.title h1{
+    font-size: 56px;
+}
+
+.title h3{
+    font-size: 24px;
+}
+
+.lt{
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    font-size: 20px;
+}
+
+.lb{
+    position: absolute;
+    bottom: 3%;
+    left: 3%;
+    font-size: 20px;
+}
+
+.rt{
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    font-size: 20px;
+}
+
+.rb{
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+    font-size: 20px;
+}
+
+/*結尾*/
+.footer{
+    width: 1280px;
+    background-color: #2EB738;
+    position: absolute;
+    bottom: 0;
+}
+.footer p{
+    display: block;
+    font-size: 16px;
+    color: #D8D8D8;
+    padding: 8px 0;
+    text-align: right;
+    transform: translateX(-10%);
+}
