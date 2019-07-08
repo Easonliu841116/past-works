@@ -1,0 +1,57 @@
+.work-time-container {
+  width: 1280px;
+  height: 800px;
+  margin: 0 auto;
+  font-family: $font-style-primary;
+  background-color: $bg-lighten-primary;
+  color: $font-color-dark;
+  display: flex;
+
+  .main-container {
+    width: 830px;
+    height: 800px;
+    position: relative;
+
+    .mission-container {
+      width: 445px;
+      display: flex;
+      position: absolute;
+      top: 48px;
+      left: 85px;
+      &:focus{
+        border: 3px solid red;
+      }
+
+      .mission-input {
+        font-weight: bold;
+        color: $font-color-dark;
+        border: 0;
+        height: 56px;
+        padding-left: 1.5rem;
+        width: 100%;
+        outline: none;
+        &::placeholder {
+          color: $font-color-primary;
+          font-style: italic;
+        }
+      }
+
+      .btn-add-mission {
+        height: 56px;
+        width: 56px;
+        border: 0;
+        background: url('~@/assets/images/baseline-add-24px.svg') no-repeat center center;
+        background-color: $bg-light;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .menu-container {
+    width: 450px;
+    height: 800px;
+    color: $font-color-light;
+    background-color: $bg-dark;
+  }
+}
