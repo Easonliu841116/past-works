@@ -8,7 +8,19 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: () => import('./views/Index'),
+      component: () => import('./components/Index'),
+    },
+    {
+      path: '/menu',
+      name: 'Menu',
+      component: () => import('./components/Menu'),
+      children: [
+        {
+          path: 'todolist',
+          name: 'TodoList',
+          component: () => import('./views/TodoList'),
+        },
+      ],
     },
   ],
 });

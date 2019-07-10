@@ -1,0 +1,224 @@
+.page-index {
+  background-color: $bg-lighten-primary;
+  color: $font-color-dark;
+}
+
+.main-container {
+  width: 830px;
+  height: 800px;
+  position: relative;
+
+  .mission-input-container {
+    width: 445px;
+    display: flex;
+    position: absolute;
+    top: 48px;
+    left: 85px;
+    transition: $transition-normal;
+    &:focus-within {
+      box-shadow: $box-shadow-m;
+    }
+    // mission-input
+    .mission-input {
+      font-weight: bold;
+      color: $font-color-dark;
+      border: 0;
+      height: 56px;
+      padding-left: 1.5rem;
+      width: 100%;
+      outline: none;
+      &::placeholder {
+        color: $font-color-primary;
+        font-style: italic;
+      }
+    }
+    .btn-add-mission {
+      height: 56px;
+      width: 56px;
+      background-color: $bg-light;
+      color: $font-color-primary;
+      font-size: $font-size-lg;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+      transition: $transition-normal;
+      &:hover {
+        background-color: $bg-primary;
+        color: $font-color-light;
+      }
+      &:active {
+        background-color: darken($bg-primary, 20%);
+      }
+    }
+  }
+  // countdown-number
+  .countdown-number {
+    @include position-absolute(85px, 50%, 0, -50%) {
+      font-size: $font-display-lg;
+      color: $font-color-primary;
+      font-weight: bold;
+      cursor: default;
+    }
+  }
+  // mission-list
+  .mission-list-container {
+    @include position-absolute(85px, 610px) {
+      font-weight: bold;
+      width: 445px;
+    }
+    .missions {
+      @include d-flex(row, space-between, flex-start) {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(0, 49, 100, 0.2);
+        color: $font-color-dark;
+      }
+      .mission-text {
+        @include d-flex(row, flex-start) {
+          cursor: default;
+          transition: $transition-normal;
+        }
+        span {
+          display: inline-block;
+          border: 2.5px solid $bg-dark;
+          border-radius: 90%;
+          height: 24px;
+          width: 24px;
+          margin-right: 0.5rem;
+        }
+      }
+
+      .btn-start-count {
+        display: inline-block;
+        background: url("~@/assets/images/btn-play-outline-dark.svg") center center no-repeat;
+        width: 24px;
+        height: 24px;
+        border-radius: 90%;
+        transition: $transition-normal;
+        &:hover {
+          transform: scale(1.3);
+        }
+      }
+    }
+    .btn-link-primary {
+      display: block;
+      color: $font-color-primary;
+      padding: 0.5rem 0;
+      font-weight: bold;
+      text-align: right;
+      &:hover {
+        color: darken($font-color-primary, 20%);
+      }
+    }
+  }
+  .countdown-clock-container {
+    @include position-absolute(560px, 130px) {
+      @include d-flex() {
+        background: transparent;
+        border: 4px solid $bg-primary;
+        border-radius: 90%;
+        width: 540px;
+        height: 540px;
+      }
+    }
+    .clock-surface {
+      width: 510px;
+      height: 510px;
+      border-radius: 90%;
+      background-color: $bg-primary;
+      z-index: 500;
+      position: relative;
+
+      .btn-play {
+        @include position-absolute(50%, 50%, -50%, -50%) {
+          display: block;
+          width: 96px;
+          height: 96px;
+          border-radius: 90%;
+          background: $bg-light url("~@/assets/images/btn-primary-play.svg") center center / cover no-repeat;
+          z-index: 999px;
+          transition: $transition-normal;
+        }
+        &:hover {
+          transform: scale(1.15) translate(-42.5%, -42.5%);
+          box-shadow: $box-shadow-m;
+        }
+      }
+
+      .btn-stop {
+        @include position-absolute(310px, 286px) {
+          display: block;
+          width: 16px;
+          height: 16px;
+          background-color: $bg-light;
+          z-index: 999;
+          transition: $transition-normal;
+          &:hover {
+            transform: scale(1.3);
+            box-shadow: $box-shadow-m;
+          }
+        }
+      }
+    }
+  }
+}
+
+.aside-container {
+  width: 450px;
+  height: 800px;
+  color: $font-color-light;
+  background-color: $bg-dark;
+
+  .menu-container {
+    @include position-absolute(1159px) {
+      @include d-flex(column, space-between, flex-start) {
+        width: 36px;
+        height: 800px;
+        line-height: 2rem;
+      }
+    }
+
+    .btn-menu-group {
+      @include d-flex(column, space-between, flex-start) {
+        width: 36px;
+        height: 204px;
+        margin-top: 3rem;
+      }
+
+      .btn-menu {
+        display: block;
+        width: 36px;
+        height: 36px;
+      }
+
+      .btn-light-list {
+        background: url("~@/assets/images/btn-light-list.svg") center center / cover no-repeat;
+        &:hover {
+          background: url("~@/assets/images/btn-primary-list.svg") center center / cover no-repeat;
+        }
+      }
+      .btn-light-analytics {
+        background: url("~@/assets/images/btn-light-analytics.svg") center center / cover no-repeat;
+        &:hover {
+          background: url("~@/assets/images/btn-primary-analytics.svg") center center / cover no-repeat;
+        }
+      }
+      .btn-light-ringtone {
+        background: url("~@/assets/images/btn-light-ringtone.svg") center center / cover no-repeat;
+        &:hover {
+          background: url("~@/assets/images/btn-primary-ringtone.svg") center center / cover no-repeat;
+        }
+      }
+    }
+
+    .logo {
+      writing-mode: vertical-lr;
+      font-size: $font-size-lg;
+      font-family: $font-style-sencondary;
+      font-weight: bold;
+      margin-bottom: 3rem;
+      &:hover {
+        color: $font-color-primary;
+      }
+    }
+  }
+}
