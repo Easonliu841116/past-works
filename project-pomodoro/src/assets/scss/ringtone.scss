@@ -1,0 +1,64 @@
+.ringtone-list-container {
+  font-weight: bold;
+  width: 445px;
+  color: $font-color-light;
+  
+  .ringtone-title {
+    @include d-flex(row, space-between) {
+      padding: 0.5rem 1rem;
+      font-size: $font-size-lg;
+      background-color: $bg-muted;
+      margin: 3rem 0 1rem 0;
+    }
+  }
+
+  .ringtone-list-wrapper {
+    @include d-flex(column, flex-start, flex-start) {
+      flex-wrap: wrap;
+      height: 200px;
+    }
+    .ringtones {
+      @include d-flex(row, space-between, flex-start) {
+        padding: 0.5rem 0;
+      }
+      .ringtone-text {
+        @include d-flex(row, flex-start) {
+          cursor: pointer;
+          transition: $transition-normal;
+        }
+      }
+      .ringtone-selector {
+        display: none;
+      }
+
+      .ringtone-selector + .ringtone-text {
+        span {
+          display: inline-block;
+          border: 2.5px solid $bg-light;
+          border-radius: 90%;
+          height: 24px;
+          width: 24px;
+          margin-right: 0.5rem;
+        }
+      }
+
+      .ringtone-selector:checked + .ringtone-text {
+        span {
+          border: 2.5px solid $bg-primary;
+          background: radial-gradient($bg-primary 45%, transparent 55%);
+        }
+      }
+      .btn-start-count {
+        display: inline-block;
+        background: url("~@/assets/images/btn-outline-light-play.svg") center center no-repeat;
+        width: 24px;
+        height: 24px;
+        border-radius: 90%;
+        transition: $transition-normal;
+        &:hover {
+          transform: scale(1.3);
+        }
+      }
+    }
+  }
+}

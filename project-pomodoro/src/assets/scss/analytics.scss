@@ -1,0 +1,78 @@
+.analytics-number-container {
+  color: $font-color-light;
+  cursor: default;
+
+  .analytics-number-title {
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    font-size: $font-size-lg;
+    background-color: $bg-muted;
+    margin: 3rem 0 1rem 0;
+  }
+}
+
+.analytics-data-container {
+  @include d-flex(row, space-between) {
+    font-weight: bold;
+    margin-bottom: 3rem;
+  }
+
+  .analytics-data-title {
+    color: $font-color-light;
+    margin-bottom: 0.5rem;
+  }
+  .analytics-data-qty {
+    font-size: $font-display-md;
+    color: $font-color-primary;
+  }
+  .analytics-data-unit {
+    margin-left: 1rem;
+    color: $font-color-muted;
+  }
+}
+
+.analytics-chart-title-container {
+  @include d-flex(row, space-between) {
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    background-color: $bg-muted;
+    margin: 3rem 0 1rem 0;
+    color: $font-color-light;
+
+    .analytics-chart-title {
+      font-size: $font-size-lg;
+      cursor: default;
+    }
+    .chart-date {
+      @include d-flex;
+
+      .btn-switch {
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+      }
+      .btn-prev-date {
+        margin-right: 0.5rem;
+        background: url("~@/assets/images/btn-light-prev.svg") center center / cover no-repeat;
+        &:hover{
+          background: url("~@/assets/images/btn-primary-prev.svg") center center / cover no-repeat;
+        }
+      }
+
+      .calendar{
+        font-weight: bold;
+        &:hover{
+          color: $font-color-primary;
+        }
+      }
+
+      .btn-next-date {
+        margin-left: 0.5rem;
+        background: url("~@/assets/images/btn-light-next.svg") center center / cover no-repeat;
+        &:hover{
+          background: url("~@/assets/images/btn-primary-next.svg") center center / cover no-repeat;
+        }
+      }
+    }
+  }
+}

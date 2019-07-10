@@ -5,19 +5,19 @@
         <div class="main-container">
           <ul class="menu-list-group">
             <li>
-              <router-link to="/" class="btn-link">
+              <router-link :to="{ name:'TodoList' }" class="btn-link">
                 <span class="btn-muted-list"></span>
                 &nbsp;TO-DO LIST
               </router-link>
             </li>
             <li>
-              <router-link to="/" class="btn-link">
+              <router-link :to="{ name:'Analytics' }" class="btn-link">
                 <span class="btn-muted-analytics"></span>
                 &nbsp;ANALYTICS
               </router-link>
             </li>
             <li>
-              <router-link to="/" class="btn-link">
+              <router-link :to="{ name:'Ringtone' }" class="btn-link">
                 <span class="btn-muted-ringtone"></span>
                 &nbsp;RINGTONES
               </router-link>
@@ -42,11 +42,11 @@
       <aside>
         <div class="aside-container">
           <div class="btn-back">
-            <a href="#" @click.prevent>×</a>
+            <router-link :to="{ name:'Index' }">×</router-link>
           </div>
-          <div class="logo">
+          <h1 class="logo">
             <a href="#" @click.prevent>POMODORO</a>
-          </div>
+          </h1>
         </div>
       </aside>
     </div>

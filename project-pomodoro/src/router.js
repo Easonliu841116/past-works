@@ -6,19 +6,32 @@ Vue.use(Router);
 export default new Router({
   routes: [
     {
+      path: '*',
+      redirect: '/',
+    },
+    {
       path: '/',
       name: 'Index',
-      component: () => import('./components/Index'),
+      component: () => import('./components/Index.vue'),
     },
     {
       path: '/menu',
-      name: 'Menu',
-      component: () => import('./components/Menu'),
+      component: () => import('./components/Menu.vue'),
       children: [
         {
-          path: 'todolist',
+          path: '/',
           name: 'TodoList',
-          component: () => import('./views/TodoList'),
+          component: () => import('./views/TodoList.vue'),
+        },
+        {
+          path: 'analytics',
+          name: 'Analytics',
+          component: () => import('./views/Analytics.vue'),
+        },
+        {
+          path: 'ringtone',
+          name: 'Ringtone',
+          component: () => import('./views/Ringtone.vue'),
         },
       ],
     },
