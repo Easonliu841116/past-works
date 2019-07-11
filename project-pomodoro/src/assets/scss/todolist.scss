@@ -58,7 +58,7 @@
       height: 24px;
       background: url("~@/assets/images/btn-light-dropdown.svg") center center no-repeat;
       transition: $transition-normal;
-      &:hover{
+      &:hover {
         transform: scale(1.4);
       }
     }
@@ -89,21 +89,32 @@
         margin-right: 0.5rem;
       }
     }
-
-    .mission-selector:checked + .mission-text {
-      span {
+      .fake-checked {
         background: url("~@/assets/images/btn-light-done.svg") center center no-repeat;
       }
-    }
-    .btn-start-count {
-      display: inline-block;
-      background: url("~@/assets/images/btn-outline-light-play.svg") center center no-repeat;
-      width: 24px;
-      height: 24px;
-      border-radius: 90%;
-      transition: $transition-normal;
-      &:hover {
-        transform: scale(1.3);
+
+    .btn-group {
+      display: flex;
+
+      .mission-btn {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        transition: $transition-normal;
+        &:hover {
+          transform: scale(1.3);
+        }
+      }
+      .btn-edit {
+        background: url("~@/assets/images/btn-light-edit.svg") center center no-repeat;
+      }
+      .btn-delete {
+        font-size: $font-size-lg;
+        text-align: center;
+      }
+      .btn-start-count {
+        background: url("~@/assets/images/btn-outline-light-play.svg") center center no-repeat;
+        border-radius: 90%;
       }
     }
   }

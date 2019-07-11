@@ -1,104 +1,83 @@
 <template>
   <div>
     <form class="mission-input-container">
-      <input class="mission-input" type="text" placeholder="ADD A NEW MISSION…" />
-      <button class="btn-add-mission" @click.prevent>+</button>
+      <input
+        v-model="newMission"
+        type="text"
+        class="mission-input"
+        placeholder="ADD A NEW MISSION…"
+        @keyup:enter.prevent="addMission"
+      />
+      <button class="btn-add-mission" @click.prevent="addMission">+</button>
     </form>
     <ul class="mission-list-container">
       <li class="mission-title">
         <span>TO-DO</span>
         <a href="#" @click.prevent class="btn-dropdown"></a>
       </li>
-      <li class="missions">
-        <input
-          class="mission-selector"
-          id="mission-selector-1"
-          name="mission-selector"
-          type="checkbox"
-        />
-        <label class="mission-text" for="mission-selector-1">
+      <li class="missions" v-for="(item, key) in missions" :key="key" v-show="!item.completed">
+        <input class="mission-selector" :id="item.id" name="mission-selector"
+        type="checkbox"/>
+        <label class="mission-text" :for="item.id"
+        :class="{'line-through':item.completed}" @click="toggleComplete(item)">
           <span></span>
-          THE SECOND THING TODAY
+          {{item.missionTitle}}
         </label>
-        <a href="#" class="btn-start-count" @click.prevent></a>
-      </li>
-      <li class="missions">
-        <input
-          class="mission-selector"
-          id="mission-selector-2"
-          name="mission-selector"
-          type="checkbox"
-        />
-        <label class="mission-text" for="mission-selector-2">
-          <span></span>
-          THE SECOND THING TODAY
-        </label>
-        <a href="#" class="btn-start-count" @click.prevent></a>
-      </li>
-      <li class="missions">
-        <input
-          class="mission-selector"
-          id="mission-selector-3"
-          name="mission-selector"
-          type="checkbox"
-        />
-        <label class="mission-text" for="mission-selector-3">
-          <span></span>
-          THE SECOND THING TODAY
-        </label>
-        <a href="#" class="btn-start-count" @click.prevent></a>
+        <div class="btn-group">
+          <a href="#" class="btn-edit mission-btn" @click.prevent></a>
+          <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
+          <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
+        </div>
       </li>
     </ul>
     <ul class="mission-list-container">
       <li class="mission-title">
         <span>DONE</span>
-        <a href="#" @click.prevent class="btn-dropdown"></a>
+        <a href="#" @click.prevent="dropDown" class="btn-dropdown"></a>
       </li>
-      <li class="missions">
-        <input
-          class="mission-selector"
-          id="mission-selector-1"
-          name="mission-selector"
-          type="checkbox"
-        />
-        <label class="mission-text" for="mission-selector-1">
-          <span></span>
-          THE SECOND THING TODAY
+      <li class="missions" v-for="(item, key) in missions" :key="key" v-show="item.completed">
+        <input class="mission-selector" :id="item.id" name="mission-selector"
+        type="checkbox"/>
+        <label class="mission-text" :for="item.id"
+        :class="{'line-through':item.completed}" @click="toggleComplete(item)">
+          <span :class="{'fake-checked': item.completed === true}"></span>
+          {{item.missionTitle}}
         </label>
-        <a href="#" class="btn-start-count" @click.prevent></a>
-      </li>
-      <li class="missions">
-        <input
-          class="mission-selector"
-          id="mission-selector-2"
-          name="mission-selector"
-          type="checkbox"
-        />
-        <label class="mission-text" for="mission-selector-2">
-          <span></span>
-          THE SECOND THING TODAY
-        </label>
-        <a href="#" class="btn-start-count" @click.prevent></a>
-      </li>
-      <li class="missions">
-        <input
-          class="mission-selector"
-          id="mission-selector-3"
-          name="mission-selector"
-          type="checkbox"
-        />
-        <label class="mission-text" for="mission-selector-3">
-          <span></span>
-          THE SECOND THING TODAY
-        </label>
-        <a href="#" class="btn-start-count" @click.prevent></a>
+        <div class="btn-group">
+          <a href="#" class="btn-edit mission-btn" @click.prevent></a>
+          <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
+          <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
+        </div>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapFields } from 'vuex-map-fields';
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+  computed: {
+    ...mapFields([
+      'newMission',
+    ]),
+    ...mapGetters([
+      'missions',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'addMission',
+    ]),
+    toggleComplete(el) {
+      this.$store.dispatch('toggleCompleted', el);
+    },
+    deleteMission(el) {
+      this.$store.dispatch('deleteMission', el);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
