@@ -10,3 +10,7 @@
 .line-through{
   text-decoration: line-through;
 }
+
+.turn-opposite{
+  transform: rotate(180deg) !important;
+}
