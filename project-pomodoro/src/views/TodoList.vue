@@ -17,23 +17,28 @@
         class="btn-dropdown" id="btn-todo-dropdown"></a>
       </li>
       <div id="todo-missions">
-        <li class="missions" v-for="(item, key) in missions" :key="key" v-show="!item.completed">
-          <input class="mission-selector" :id="item.id" name="mission-selector"
-          type="checkbox"/>
-          <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
-          :class="{'line-through':item.completed}" @click="toggleComplete(item)">
-            <span></span>
-            {{item.missionTitle}}
-          </label>
-          <input class="btn-missionEdit" type="text" v-if="item.id === cacheMission.id"
-          v-model="cacheMissionTitle" @keyup.enter="finishEdit(item)"
-          @blur="finishEdit(item)" @keyup.esc="cancelEdit"/>
-          <div class="btn-group">
-            <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
-            <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
-            <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
-          </div>
-        </li>
+        <draggable v-model="missions" handle=".btn-drag">
+          <li class="missions" v-for="(item, key) in missions" :key="key" v-show="!item.completed">
+            <input class="mission-selector" :id="item.id" name="mission-selector"
+            type="checkbox"/>
+            <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
+            :class="{'line-through':item.completed}" @click="toggleComplete(item)">
+              <span></span>
+              {{item.missionTitle}}
+            </label>
+            <div v-if="item.id === cacheMission.id">
+              <input class="btn-missionEdit" type="text" v-model="cacheMissionTitle"
+              @blur="finishEdit(item)"/>
+              <span class="edit-hint">點擊周遭完成編輯</span>
+            </div>
+            <div class="btn-group">
+              <a href="#" class="btn-drag mission-btn" @click.prevent></a>
+              <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
+              <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
+              <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
+            </div>
+          </li>
+        </draggable>
       </div>
     </ul>
     <ul class="mission-list-container">
@@ -43,33 +48,38 @@
         class="btn-dropdown" id="btn-done-dropdown"></a>
       </li>
       <div id="done-missions">
-        <li class="missions" v-for="(item, key) in missions" :key="key" v-show="item.completed">
-          <input class="mission-selector" :id="item.id" name="mission-selector"
-          type="checkbox"/>
-          <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
-          :class="{'line-through':item.completed}" @click="toggleComplete(item)">
-            <span :class="{'fake-checked': item.completed === true}"></span>
-            {{item.missionTitle}}
-          </label>
-          <input class="btn-missionEdit" type="text" v-if="item.id === cacheMission.id"
-          v-model="cacheMissionTitle" @keyup.enter="finishEdit(item)"
-          @blur="finishEdit(item)" @keyup.esc="cancelEdit"/>
-          <div class="btn-group">
-            <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
-            <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
-            <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
-          </div>
-        </li>
+        <draggable v-model="missions" handle=".btn-drag">
+          <li class="missions" v-for="(item, key) in missions" :key="key" v-show="item.completed">
+            <input class="mission-selector" :id="item.id" name="mission-selector"
+            type="checkbox"/>
+            <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
+            :class="{'line-through':item.completed}" @click="toggleComplete(item)">
+              <span :class="{'fake-checked': item.completed === true}"></span>
+              {{item.missionTitle}}
+            </label>
+            <div v-if="item.id === cacheMission.id">
+              <input class="btn-missionEdit" type="text" v-model="cacheMissionTitle"
+              @blur="finishEdit(item)"/>
+              <span class="edit-hint">點擊周遭完成編輯</span>
+            </div>
+            <div class="btn-group">
+              <a href="#" class="btn-drag mission-btn" @click.prevent></a>
+              <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
+              <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
+              <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
+            </div>
+          </li>
+        </draggable>
       </div>
     </ul>
   </div>
-  解決enter不能focus
 </template>
 
 <script>
 import { mapFields } from 'vuex-map-fields';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import $ from 'jquery';
+import draggable from 'vuedraggable';
 
 export default {
   computed: {
@@ -77,15 +87,12 @@ export default {
       'newMission',
       'cacheMission',
       'cacheMissionTitle',
-    ]),
-    ...mapGetters([
       'missions',
     ]),
   },
   methods: {
     ...mapActions([
       'addMission',
-      'cancelEdit',
     ]),
     toggleComplete(el) {
       this.$store.dispatch('toggleCompleted', el);
@@ -110,6 +117,9 @@ export default {
       $('#done-missions').fadeToggle();
       $('#btn-done-dropdown').toggleClass('turn-opposite');
     },
+  },
+  components: {
+    draggable,
   },
 };
 </script>

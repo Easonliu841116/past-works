@@ -63,9 +63,6 @@ export default new Vuex.Store({
       state.cacheMission = {};
       state.cacheMissionTitle = '';
     },
-    CANCELEDIT(state) {
-      state.cacheMission = {};
-    },
     updateField,
   },
   actions: {
@@ -85,9 +82,6 @@ export default new Vuex.Store({
     },
     finishEdit(context, payload) {
       context.commit('FINISHEDIT', payload);
-    },
-    cancelEdit(context) {
-      context.commit('CANCELEDIT');
     },
   },
 });

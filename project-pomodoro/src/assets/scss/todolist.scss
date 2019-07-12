@@ -90,7 +90,7 @@
       }
     }
 
-    .btn-missionEdit{
+    .btn-missionEdit {
       background: transparent;
       color: $font-color-light;
       font-weight: bold;
@@ -100,9 +100,14 @@
       border: $bg-light 2px solid;
       border-radius: 0.3rem;
       outline: none;
-      &:focus{
+      &:focus {
         border: $bg-primary 2px solid;
       }
+    }
+    .edit-hint {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-left: 0.5rem;
     }
 
     .fake-checked {
@@ -120,6 +125,10 @@
         &:hover {
           transform: scale(1.3);
         }
+      }
+      .btn-drag {
+        background: url("~@/assets/images/btn-light-drag.svg") center center no-repeat;
+        cursor: move;
       }
       .btn-edit {
         background: url("~@/assets/images/btn-light-edit.svg") center center no-repeat;
