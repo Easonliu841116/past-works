@@ -10,10 +10,21 @@ export default new Vuex.Store({
     newMission: '',
     missions: [],
     tempMissions: [],
+    cacheMission: {},
+    cacheMissionTitle: '',
   },
   getters: {
     missions(state) {
       return state.missions;
+    },
+    cacheMissionTitle(state) {
+      return state.cacheMissionTitle;
+    },
+    isEdit(state) {
+      return state.isEdit;
+    },
+    cacheMission(state) {
+      return state.cacheMission;
     },
     getField,
   },
@@ -43,6 +54,18 @@ export default new Vuex.Store({
       });
       state.missions.splice(deleteId, 1);
     },
+    EDITMISSION(state, payload) {
+      state.cacheMission = payload;
+      state.cacheMissionTitle = payload.missionTitle;
+    },
+    FINISHEDIT(state, payload) {
+      payload.missionTitle = state.cacheMissionTitle;
+      state.cacheMission = {};
+      state.cacheMissionTitle = '';
+    },
+    CANCELEDIT(state) {
+      state.cacheMission = {};
+    },
     updateField,
   },
   actions: {
@@ -54,6 +77,17 @@ export default new Vuex.Store({
     },
     deleteMission(context, payload) {
       context.commit('DELETEMISSION', payload);
+    },
+    editMission(context, payload) {
+      setTimeout(() => {
+        context.commit('EDITMISSION', payload);
+      }, 1);
+    },
+    finishEdit(context, payload) {
+      context.commit('FINISHEDIT', payload);
+    },
+    cancelEdit(context) {
+      context.commit('CANCELEDIT');
     },
   },
 });

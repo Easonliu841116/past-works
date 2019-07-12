@@ -20,13 +20,16 @@
         <li class="missions" v-for="(item, key) in missions" :key="key" v-show="!item.completed">
           <input class="mission-selector" :id="item.id" name="mission-selector"
           type="checkbox"/>
-          <label class="mission-text" :for="item.id"
+          <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
           :class="{'line-through':item.completed}" @click="toggleComplete(item)">
             <span></span>
             {{item.missionTitle}}
           </label>
+          <input class="btn-missionEdit" type="text" v-if="item.id === cacheMission.id"
+          v-model="cacheMissionTitle" @keyup.enter="finishEdit(item)"
+          @blur="finishEdit(item)" @keyup.esc="cancelEdit"/>
           <div class="btn-group">
-            <a href="#" class="btn-edit mission-btn" @click.prevent></a>
+            <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
             <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
             <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
           </div>
@@ -43,13 +46,16 @@
         <li class="missions" v-for="(item, key) in missions" :key="key" v-show="item.completed">
           <input class="mission-selector" :id="item.id" name="mission-selector"
           type="checkbox"/>
-          <label class="mission-text" :for="item.id"
+          <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
           :class="{'line-through':item.completed}" @click="toggleComplete(item)">
             <span :class="{'fake-checked': item.completed === true}"></span>
             {{item.missionTitle}}
           </label>
+          <input class="btn-missionEdit" type="text" v-if="item.id === cacheMission.id"
+          v-model="cacheMissionTitle" @keyup.enter="finishEdit(item)"
+          @blur="finishEdit(item)" @keyup.esc="cancelEdit"/>
           <div class="btn-group">
-            <a href="#" class="btn-edit mission-btn" @click.prevent></a>
+            <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
             <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
             <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
           </div>
@@ -57,6 +63,7 @@
       </div>
     </ul>
   </div>
+  解決enter不能focus
 </template>
 
 <script>
@@ -68,6 +75,8 @@ export default {
   computed: {
     ...mapFields([
       'newMission',
+      'cacheMission',
+      'cacheMissionTitle',
     ]),
     ...mapGetters([
       'missions',
@@ -76,12 +85,22 @@ export default {
   methods: {
     ...mapActions([
       'addMission',
+      'cancelEdit',
     ]),
     toggleComplete(el) {
       this.$store.dispatch('toggleCompleted', el);
     },
     deleteMission(el) {
       this.$store.dispatch('deleteMission', el);
+    },
+    editMission(el) {
+      this.$store.dispatch('editMission', el);
+      setTimeout(() => {
+        $('.btn-missionEdit').focus();
+      }, 2);
+    },
+    finishEdit(el) {
+      this.$store.dispatch('finishEdit', el);
     },
     todoMissionDropToggle() {
       $('#todo-missions').fadeToggle();
