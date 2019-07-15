@@ -11,13 +11,14 @@ export default new Vuex.Store({
     missions: [],
     tempMissions: [],
     cacheMission: {},
+    doingMission: {},
     cacheMissionTitle: '',
     timer: {
       timerMode: 0,
       workTime: 1500,
       breakTime: 300,
       leftTime: '25:00',
-      isPaused: true,
+      isPaused: false,
     },
   },
   getters: {

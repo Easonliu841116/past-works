@@ -28,10 +28,10 @@
               <li>
                 <div class="btn-play-bg">
                   <div class="btn-control-container">
-                    <a class="btn-controller btn-play" href="#" v-if="timer.isPaused"
-                    @click.prevent="pauseCount"></a>
+                    <a class="btn-controller btn-play" href="#" v-if="!timer.isPaused"
+                    @click.prevent="countDown"></a>
                     <a class="btn-controller btn-pause" href="#" v-else
-                    @click.prevent="pauseCount"></a>
+                    @click.prevent="countDown"></a>
                   </div>
                 </div>
               </li>
@@ -70,18 +70,11 @@ export default {
   methods: {
     countDown() {
       const vm = this;
-      if (!vm.timer.isPaused) {
-        setInterval(() => {
-          vm.$store.dispatch('countDown');
-        }, 1000);
-      }
+      vm.$store.dispatch('pauseCount');
+      setInterval(() => {
+        vm.$store.dispatch('countDown');
+      }, 1000);
     },
-    pauseCount() {
-      this.$store.dispatch('pauseCount');
-    },
-  },
-  mounted() {
-    this.countDown();
   },
 };
 </script>
