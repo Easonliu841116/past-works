@@ -28,7 +28,7 @@
               <li>
                 <div class="btn-play-bg">
                   <div class="btn-control-container">
-                    <a class="btn-controller btn-play" href="#" v-if="!timer.isPaused"
+                    <a class="btn-controller btn-play" href="#" v-if="timer.isPaused"
                     @click.prevent="countDown"></a>
                     <a class="btn-controller btn-pause" href="#" v-else
                     @click.prevent="countDown"></a>
@@ -62,6 +62,11 @@ import { mapGetters } from 'vuex';
 // import $ from 'jquery';
 
 export default {
+  data() {
+    return {
+      isCounted: false,
+    };
+  },
   computed: {
     ...mapGetters([
       'timer',
@@ -70,10 +75,19 @@ export default {
   methods: {
     countDown() {
       const vm = this;
-      vm.$store.dispatch('pauseCount');
-      setInterval(() => {
-        vm.$store.dispatch('countDown');
-      }, 1000);
+      console.log(vm.timer.isPaused, vm.isCounted);
+      if (vm.timer.isPaused && !vm.isCounted) {
+        if (vm.timer.isPaused) {
+          setInterval(() => {
+            vm.$store.dispatch('countDown');
+            console.log(vm.timer.isPaused, vm.isCounted);
+          }, 1000);
+        }
+        vm.$store.dispatch('pauseCount');
+        vm.isCounted = true;
+      } else if (!vm.timer.isPaused && vm.isCounted) {
+        vm.$store.dispatch('pauseCount');
+      }
     },
   },
 };

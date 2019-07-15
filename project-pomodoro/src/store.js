@@ -18,7 +18,7 @@ export default new Vuex.Store({
       workTime: 1500,
       breakTime: 300,
       leftTime: '25:00',
-      isPaused: false,
+      isPaused: true,
     },
   },
   getters: {
