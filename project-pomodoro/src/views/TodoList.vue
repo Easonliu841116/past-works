@@ -32,10 +32,14 @@
               <span class="edit-hint">點擊周遭完成編輯</span>
             </div>
             <div class="btn-group">
-              <a href="#" class="btn-drag mission-btn" @click.prevent></a>
-              <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
-              <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
-              <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
+              <a href="#" class="btn-drag mission-btn btn-hide"
+              @click.prevent></a>
+              <a href="#" class="btn-edit mission-btn btn-hide"
+              @click.prevent="editMission(item)"></a>
+              <a href="#" class="btn-delete mission-btn btn-hide"
+              @click.prevent="deleteMission(item)">×</a>
+              <a href="#" class="btn-start-count mission-btn"
+              @click.prevent></a>
             </div>
           </li>
         </draggable>
@@ -63,10 +67,14 @@
               <span class="edit-hint">點擊周遭完成編輯</span>
             </div>
             <div class="btn-group">
-              <a href="#" class="btn-drag mission-btn" @click.prevent></a>
-              <a href="#" class="btn-edit mission-btn" @click.prevent="editMission(item)"></a>
-              <a href="#" class="btn-delete mission-btn" @click.prevent="deleteMission(item)">×</a>
-              <a href="#" class="btn-start-count mission-btn" @click.prevent></a>
+              <a href="#" class="btn-drag mission-btn btn-hide"
+              @click.prevent></a>
+              <a href="#" class="btn-edit mission-btn btn-hide"
+              @click.prevent="editMission(item)"></a>
+              <a href="#" class="btn-delete mission-btn btn-hide"
+              @click.prevent="deleteMission(item)">×</a>
+              <a href="#" class="btn-start-count mission-btn"
+              @click.prevent></a>
             </div>
           </li>
         </draggable>

@@ -12,6 +12,13 @@ export default new Vuex.Store({
     tempMissions: [],
     cacheMission: {},
     cacheMissionTitle: '',
+    timer: {
+      timerMode: 0,
+      workTime: 1500,
+      breakTime: 300,
+      leftTime: '25:00',
+      isPaused: true,
+    },
   },
   getters: {
     missions(state) {
@@ -20,11 +27,11 @@ export default new Vuex.Store({
     cacheMissionTitle(state) {
       return state.cacheMissionTitle;
     },
-    isEdit(state) {
-      return state.isEdit;
-    },
     cacheMission(state) {
       return state.cacheMission;
+    },
+    timer(state) {
+      return state.timer;
     },
     getField,
   },
@@ -63,6 +70,21 @@ export default new Vuex.Store({
       state.cacheMission = {};
       state.cacheMissionTitle = '';
     },
+    TIMER(state) {
+      // let countTime;
+      // if (state.timer.timerMode === 0) {
+      //   countTime = state.timer.workTime;
+      // } else if (state.timer.timerMode === 1) {
+      //   countTime = state.timer.breakTime;
+      // }
+      state.timer.workTime -= 1;
+      const min = Math.floor(state.timer.workTime / 60);
+      const sec = state.timer.workTime % 60;
+      state.timer.leftTime = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    },
+    COUNTCONTROLLER(state) {
+      state.timer.isPaused = !state.timer.isPaused;
+    },
     updateField,
   },
   actions: {
@@ -82,6 +104,12 @@ export default new Vuex.Store({
     },
     finishEdit(context, payload) {
       context.commit('FINISHEDIT', payload);
+    },
+    countDown(context) {
+      context.commit('TIMER');
+    },
+    pauseCount(context) {
+      context.commit('COUNTCONTROLLER');
     },
   },
 });

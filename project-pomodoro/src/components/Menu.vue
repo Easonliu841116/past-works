@@ -27,12 +27,15 @@
             <ul class="countdown-clock-wrapper">
               <li>
                 <div class="btn-play-bg">
-                  <div class="btn-play-container">
-                    <router-link class="btn-light-play" to="/"></router-link>
+                  <div class="btn-control-container">
+                    <a class="btn-controller btn-play" href="#" v-if="timer.isPaused"
+                    @click.prevent="pauseCount"></a>
+                    <a class="btn-controller btn-pause" href="#" v-else
+                    @click.prevent="pauseCount"></a>
                   </div>
                 </div>
               </li>
-              <li class="countdown-number">25:00</li>
+              <li class="countdown-number">{{timer.leftTime}}</li>
               <li class="mission-text">THE SECOND THING TODAY</li>
             </ul>
           </div>
@@ -52,6 +55,36 @@
     </div>
   </div>
 </template>
+
+<script>
+// import { mapFields } from 'vuex-map-fields';
+import { mapGetters } from 'vuex';
+// import $ from 'jquery';
+
+export default {
+  computed: {
+    ...mapGetters([
+      'timer',
+    ]),
+  },
+  methods: {
+    countDown() {
+      const vm = this;
+      if (!vm.timer.isPaused) {
+        setInterval(() => {
+          vm.$store.dispatch('countDown');
+        }, 1000);
+      }
+    },
+    pauseCount() {
+      this.$store.dispatch('pauseCount');
+    },
+  },
+  mounted() {
+    this.countDown();
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/custom.scss";

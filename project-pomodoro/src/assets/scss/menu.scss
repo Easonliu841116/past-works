@@ -52,10 +52,10 @@
     }
 
     .countdown-clock-wrapper {
-      @include d-flex(column){
+      @include d-flex(column) {
         transform: translateY(-25%);
         cursor: default;
-      };
+      }
 
       .btn-play-bg {
         @include d-flex {
@@ -65,25 +65,36 @@
           background-color: $bg-dark;
         }
 
-        .btn-play-container {
+        .btn-control-container {
           @include d-flex {
             width: 96px;
             height: 96px;
             border-radius: 90%;
             border: 2px solid $bg-primary;
           }
-          .btn-light-play {
+          .btn-controller {
             width: 80px;
             height: 80px;
             border-radius: 90%;
             display: inline-block;
             transition: $transition-normal;
-            background: url("~@/assets/images/btn-light-play.svg") center center / cover no-repeat;
             background-color: $bg-primary;
             z-index: 999;
-            &:hover{
-              background-color: $bg-lighten-primary !important;
-              background: url("~@/assets/images/btn-primary-play.svg") center center / cover no-repeat;
+          }
+          .btn-play {
+            background: $bg-primary url("~@/assets/images/btn-light-play.svg")
+            center center / cover no-repeat !important;
+            &:hover {
+              background: $bg-lighten-primary url("~@/assets/images/btn-primary-play.svg")
+              center center / cover no-repeat !important;
+            }
+          }
+          .btn-pause {
+            background: $bg-primary url("~@/assets/images/btn-light-pause.svg")
+            center center / cover no-repeat !important;
+            &:hover {
+              background: $bg-lighten-primary
+              url("~@/assets/images/btn-primary-pause.svg") center center / cover no-repeat !important;
             }
           }
         }
@@ -111,7 +122,7 @@
     }
   }
 
-  .btn-back{
+  .btn-back {
     margin-top: 3rem;
     font-size: $font-display-sm;
     color: $font-color-light;
@@ -133,7 +144,7 @@
   }
 }
 
-.menu-view{
+.menu-view {
   @include position-absolute(560px) {
     width: 445px;
     height: 800px;
