@@ -29,14 +29,14 @@
                 <div class="btn-play-bg">
                   <div class="btn-control-container">
                     <a class="btn-controller btn-play" href="#" v-if="timer.isPaused"
-                    @click.prevent="countDown"></a>
+                    @click.prevent="toggleCount(false)"></a>
                     <a class="btn-controller btn-pause" href="#" v-else
-                    @click.prevent="countDown"></a>
+                    @click.prevent="toggleCount(false)"></a>
                   </div>
                 </div>
               </li>
               <li class="countdown-number">{{timer.leftTime}}</li>
-              <li class="mission-text">THE SECOND THING TODAY</li>
+              <li class="mission-text">{{doingMission}}</li>
             </ul>
           </div>
         </div>
@@ -62,32 +62,15 @@ import { mapGetters } from 'vuex';
 // import $ from 'jquery';
 
 export default {
-  data() {
-    return {
-      isCounted: false,
-    };
-  },
   computed: {
     ...mapGetters([
       'timer',
+      'doingMission',
     ]),
   },
   methods: {
-    countDown() {
-      const vm = this;
-      console.log(vm.timer.isPaused, vm.isCounted);
-      if (vm.timer.isPaused && !vm.isCounted) {
-        if (vm.timer.isPaused) {
-          setInterval(() => {
-            vm.$store.dispatch('countDown');
-            console.log(vm.timer.isPaused, vm.isCounted);
-          }, 1000);
-        }
-        vm.$store.dispatch('pauseCount');
-        vm.isCounted = true;
-      } else if (!vm.timer.isPaused && vm.isCounted) {
-        vm.$store.dispatch('pauseCount');
-      }
+    toggleCount() {
+      this.$store.dispatch('toggleCount');
     },
   },
 };

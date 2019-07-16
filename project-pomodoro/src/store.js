@@ -11,7 +11,7 @@ export default new Vuex.Store({
     missions: [],
     tempMissions: [],
     cacheMission: {},
-    doingMission: {},
+    doingMission: '' || 'POMODORO',
     cacheMissionTitle: '',
     timer: {
       timerMode: 0,
@@ -33,6 +33,9 @@ export default new Vuex.Store({
     },
     timer(state) {
       return state.timer;
+    },
+    doingMission(state) {
+      return state.doingMission;
     },
     getField,
   },
@@ -72,16 +75,21 @@ export default new Vuex.Store({
       state.cacheMissionTitle = '';
     },
     TIMER(state) {
-      // let countTime;
-      // if (state.timer.timerMode === 0) {
-      //   countTime = state.timer.workTime;
-      // } else if (state.timer.timerMode === 1) {
-      //   countTime = state.timer.breakTime;
-      // }
       state.timer.workTime -= 1;
       const min = Math.floor(state.timer.workTime / 60);
       const sec = state.timer.workTime % 60;
       state.timer.leftTime = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    },
+    DOINGMISSION(state, payload) {
+      let deleteId = '';
+      state.missions.forEach((el, key) => {
+        if (payload.id === el.id) {
+          deleteId = key;
+        }
+        return deleteId;
+      });
+      state.missions.splice(deleteId, 1);
+      state.doingMission = payload.missionTitle;
     },
     COUNTCONTROLLER(state) {
       state.timer.isPaused = !state.timer.isPaused;
@@ -106,11 +114,29 @@ export default new Vuex.Store({
     finishEdit(context, payload) {
       context.commit('FINISHEDIT', payload);
     },
-    countDown(context) {
-      context.commit('TIMER');
+    startCount(context, payload) {
+      let count;
+      const vm = this;
+      if (payload && !vm.state.isPaused) {
+        count = setInterval(() => {
+          context.commit('TIMER');
+          if (!payload && vm.state.isPaused) {
+            clearInterval(count);
+          }
+        }, 1000);
+      } else if (!payload && vm.state.isPaused) {
+        context.commit('COUNTCONTROLLER');
+      } else {
+        count = setInterval(() => {
+          context.commit('TIMER');
+        }, 1000);
+      }
     },
-    pauseCount(context) {
+    toggleCount(context) {
       context.commit('COUNTCONTROLLER');
+    },
+    addToTimer(context, payload) {
+      context.commit('DOINGMISSION', payload);
     },
   },
 });
