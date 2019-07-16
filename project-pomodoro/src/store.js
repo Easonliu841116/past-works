@@ -114,23 +114,8 @@ export default new Vuex.Store({
     finishEdit(context, payload) {
       context.commit('FINISHEDIT', payload);
     },
-    startCount(context, payload) {
-      let count;
-      const vm = this;
-      if (payload && !vm.state.isPaused) {
-        count = setInterval(() => {
-          context.commit('TIMER');
-          if (!payload && vm.state.isPaused) {
-            clearInterval(count);
-          }
-        }, 1000);
-      } else if (!payload && vm.state.isPaused) {
-        context.commit('COUNTCONTROLLER');
-      } else {
-        count = setInterval(() => {
-          context.commit('TIMER');
-        }, 1000);
-      }
+    startCount(context) {
+      context.commit('TIMER');
     },
     toggleCount(context) {
       context.commit('COUNTCONTROLLER');

@@ -29,9 +29,9 @@
                 <div class="btn-play-bg">
                   <div class="btn-control-container">
                     <a class="btn-controller btn-play" href="#" v-if="timer.isPaused"
-                    @click.prevent="toggleCount(false)"></a>
+                    @click.prevent="toggleCount()"></a>
                     <a class="btn-controller btn-pause" href="#" v-else
-                    @click.prevent="toggleCount(false)"></a>
+                    @click.prevent="toggleCount()"></a>
                   </div>
                 </div>
               </li>
@@ -62,6 +62,12 @@ import { mapGetters } from 'vuex';
 // import $ from 'jquery';
 
 export default {
+  data() {
+    return {
+      controller: null,
+      isPaused: true,
+    };
+  },
   computed: {
     ...mapGetters([
       'timer',
@@ -70,7 +76,16 @@ export default {
   },
   methods: {
     toggleCount() {
-      this.$store.dispatch('toggleCount');
+      const vm = this;
+      this.$store.dispatch('toggleCount'); // 切換 vm.isPaused，isPaused預設 = true;
+      if (!vm.timer.isPause) {
+        clearInterval(vm.controller);
+        vm.controller = setInterval(() => {
+          this.$store.dispatch('startCount'); // 單純做表示畫面
+        }, 1000);
+      } else {
+        clearInterval(vm.controller);
+      }
     },
   },
 };
