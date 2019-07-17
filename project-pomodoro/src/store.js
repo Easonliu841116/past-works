@@ -13,13 +13,6 @@ export default new Vuex.Store({
     cacheMission: {},
     doingMission: '' || 'POMODORO',
     cacheMissionTitle: '',
-    timer: {
-      timerMode: 0,
-      workTime: 1500,
-      breakTime: 300,
-      leftTime: '25:00',
-      isPaused: true,
-    },
   },
   getters: {
     missions(state) {
@@ -30,9 +23,6 @@ export default new Vuex.Store({
     },
     cacheMission(state) {
       return state.cacheMission;
-    },
-    timer(state) {
-      return state.timer;
     },
     doingMission(state) {
       return state.doingMission;
@@ -74,12 +64,6 @@ export default new Vuex.Store({
       state.cacheMission = {};
       state.cacheMissionTitle = '';
     },
-    TIMER(state) {
-      state.timer.workTime -= 1;
-      const min = Math.floor(state.timer.workTime / 60);
-      const sec = state.timer.workTime % 60;
-      state.timer.leftTime = `${min}:${sec < 10 ? '0' : ''}${sec}`;
-    },
     DOINGMISSION(state, payload) {
       let deleteId = '';
       state.missions.forEach((el, key) => {
@@ -113,12 +97,6 @@ export default new Vuex.Store({
     },
     finishEdit(context, payload) {
       context.commit('FINISHEDIT', payload);
-    },
-    startCount(context) {
-      context.commit('TIMER');
-    },
-    toggleCount(context) {
-      context.commit('COUNTCONTROLLER');
     },
     addToTimer(context, payload) {
       context.commit('DOINGMISSION', payload);

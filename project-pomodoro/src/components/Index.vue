@@ -10,12 +10,13 @@
             <button class="btn-add-mission" @click.prevent="addMission">+</button>
           </form>
           <!-- countdown-number -->
-          <div class="countdown-number">25:00</div>
+          <div class="countdown-number">{{showTime}}</div>
           <!-- mission-list -->
           <ul class="mission-list-container">
             <div id="done-missions">
               <draggable v-model="missions" handle=".btn-drag">
                 <li class="missions" v-for="(item, key) in missions.slice(0,3)"
+                v-show="!item.completed"
                 :key="key">
                   <input class="mission-selector" :id="item.id" name="mission-selector"
                   type="checkbox"/>
@@ -40,18 +41,18 @@
                     @click.prevent="addToTimer(item)"></a>
                   </div>
                 </li>
-                <li>
-                  <router-link class="btn-link-primary" :to="{ name:'TodoList' }">
-                    MORE
-                  </router-link>
-                </li>
               </draggable>
+              <li>
+                <router-link class="btn-link-primary" :to="{ name:'TodoList' }">
+                  MORE
+                </router-link>
+              </li>
             </div>
           </ul>
           <!-- countdown-clock -->
           <div class="countdown-clock-container">
             <div class="clock-surface">
-              <a href="#" @click.prevent class="btn-play"></a>
+              <a href="#" @click.prevent="startCountdown" class="btn-play"></a>
               <a href="#" @click.prevent class="btn-stop"></a>
             </div>
             <div class="clock-back"></div>
@@ -90,8 +91,19 @@ import { mapFields } from 'vuex-map-fields';
 import { mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import $ from 'jquery';
+import { setInterval } from 'timers';
 
 export default {
+  data() {
+    return {
+      showTime: null,
+      timer: {
+        workTime: 300,
+        isCounted: false,
+        controll: null,
+      },
+    };
+  },
   computed: {
     ...mapFields([
       'newMission',
@@ -130,6 +142,23 @@ export default {
     },
     addToTimer(el) {
       this.$store.dispatch('addToTimer', el);
+    },
+    startCountdown() {
+      const vm = this;
+      vm.timer.isCounted = !vm.timer.isCounted; // 點擊切換計時狀態 false: 停止
+      // 假如是倒數狀態
+      if (vm.timer.isCounted) {
+      // 讓timer.controll進行倒數
+        vm.timer.controll = setInterval(() => {
+          vm.timer.workTime -= 1;
+          const min = Math.floor(vm.timer.workTime / 60);
+          const sec = vm.timer.workTime % 60;
+          vm.showTime = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }, 1000);
+      } else { // 非倒數狀態
+        // 清除timer.controll的計時
+        clearInterval(vm.timer.controll);
+      }
     },
   },
   components: {

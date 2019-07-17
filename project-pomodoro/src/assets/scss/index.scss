@@ -72,6 +72,9 @@
         padding: 0.5rem 0;
         border-bottom: 1px solid rgba(0, 49, 100, 0.2);
       }
+      &:hover > .btn-group > .btn-hide{
+        opacity: 1 !important;
+      }
       .mission-text {
         @include d-flex(row, flex-start) {
           cursor: pointer;
@@ -93,20 +96,59 @@
         }
       }
 
-      .mission-selector:checked + .mission-text {
-        span {
-          background: url("~@/assets/images/btn-dark-done.svg") center center no-repeat;
+      .btn-missionEdit {
+        background: transparent;
+        color: $font-color-light;
+        font-weight: bold;
+        font-family: $font-style-primary;
+        font-size: $font-size-base;
+        padding: 0.2rem 0.3rem;
+        border: $bg-light 2px solid;
+        border-radius: 0.3rem;
+        outline: none;
+        &:focus {
+          border: $bg-primary 2px solid;
         }
       }
-      .btn-start-count {
-        display: inline-block;
-        background: url("~@/assets/images/btn-outline-dark-play.svg") center center no-repeat;
-        width: 24px;
-        height: 24px;
-        border-radius: 90%;
-        transition: $transition-normal;
-        &:hover {
-          transform: scale(1.3);
+      .edit-hint {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-left: 0.5rem;
+      }
+      .fake-checked {
+        background: url("~@/assets/images/btn-light-done.svg") center center no-repeat;
+      }
+      .btn-group {
+        display: flex;
+
+        .mission-btn {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          transition: $transition-normal;
+          &:hover {
+            transform: scale(1.3);
+          }
+        }
+
+        .btn-hide {
+          opacity: 0;
+        }
+
+        .btn-drag {
+          background: url("~@/assets/images/btn-dark-drag.svg") center center no-repeat;
+          cursor: move;
+        }
+        .btn-edit {
+          background: url("~@/assets/images/btn-dark-edit.svg") center center no-repeat;
+        }
+        .btn-delete {
+          font-size: $font-size-lg;
+          text-align: center;
+        }
+        .btn-start-count {
+          background: url("~@/assets/images/btn-outline-dark-play.svg") center center no-repeat;
+          border-radius: 90%;
         }
       }
     }

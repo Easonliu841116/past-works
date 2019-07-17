@@ -28,14 +28,14 @@
               <li>
                 <div class="btn-play-bg">
                   <div class="btn-control-container">
-                    <a class="btn-controller btn-play" href="#" v-if="timer.isPaused"
-                    @click.prevent="toggleCount()"></a>
-                    <a class="btn-controller btn-pause" href="#" v-else
-                    @click.prevent="toggleCount()"></a>
+                    <a class="btn-controller btn-play" href="#"
+                    @click.prevent></a>
+                    <!-- <a class="btn-controller btn-pause" href="#" v-else
+                    @click.prevent="toggleCount()"></a> -->
                   </div>
                 </div>
               </li>
-              <li class="countdown-number">{{timer.leftTime}}</li>
+              <li class="countdown-number">00:00</li>
               <li class="mission-text">{{doingMission}}</li>
             </ul>
           </div>
@@ -62,31 +62,12 @@ import { mapGetters } from 'vuex';
 // import $ from 'jquery';
 
 export default {
-  data() {
-    return {
-      controller: null,
-      isPaused: true,
-    };
-  },
   computed: {
     ...mapGetters([
-      'timer',
       'doingMission',
     ]),
   },
   methods: {
-    toggleCount() {
-      const vm = this;
-      this.$store.dispatch('toggleCount'); // 切換 vm.isPaused，isPaused預設 = true;
-      if (!vm.timer.isPause) {
-        clearInterval(vm.controller);
-        vm.controller = setInterval(() => {
-          this.$store.dispatch('startCount'); // 單純做表示畫面
-        }, 1000);
-      } else {
-        clearInterval(vm.controller);
-      }
-    },
   },
 };
 </script>
