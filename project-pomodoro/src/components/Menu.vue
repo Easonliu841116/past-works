@@ -48,7 +48,7 @@
             <router-link :to="{ name:'Index' }">×</router-link>
           </div>
           <h1 class="logo">
-            <a href="#" @click.prevent>POMODORO</a>
+            POMODORO
           </h1>
         </div>
       </aside>

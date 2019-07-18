@@ -51,7 +51,6 @@
       }
     }
   }
-  // countdown-number
   .countdown-number {
     @include position-absolute(85px, 50%, 0, -50%) {
       font-size: $font-display-lg;
@@ -60,25 +59,38 @@
       cursor: default;
     }
   }
-  // mission-list
   .mission-list-container {
     @include position-absolute(85px, 610px) {
       font-weight: bold;
       width: 445px;
       color: $font-color-dark;
     }
+    .doing-mission {
+      @include position-absolute(0, -350px, 0, 0);
+    }
+    .reset-doingMission-height {
+      border: 0 !important;
+      padding: 0 !important;
+    }
     .missions {
       @include d-flex(row, space-between, flex-start) {
         padding: 0.5rem 0;
         border-bottom: 1px solid rgba(0, 49, 100, 0.2);
       }
-      &:hover > .btn-group > .btn-hide{
+      &:hover > .btn-group > .btn-hide {
         opacity: 1 !important;
       }
       .mission-text {
         @include d-flex(row, flex-start) {
           cursor: pointer;
           transition: $transition-normal;
+        }
+      }
+      .reset-mission-text {
+        @include d-flex(row, flex-start, flex-start) {
+          cursor: pointer;
+          transition: $transition-normal;
+          font-size: $font-size-lg;
         }
       }
       .mission-selector {
@@ -94,6 +106,11 @@
           width: 24px;
           margin-right: 0.5rem;
         }
+      }
+
+      .fake-checkbox-lg {
+        width: 48px !important;
+        height: 48px !important;
       }
 
       .btn-missionEdit {
@@ -181,13 +198,12 @@
       z-index: 500;
       position: relative;
 
-      .btn-play {
+      .btn-control {
         @include position-absolute(50%, 50%, -50%, -50%) {
           display: block;
           width: 96px;
           height: 96px;
           border-radius: 90%;
-          background: $bg-light url("~@/assets/images/btn-primary-play.svg") center center / cover no-repeat;
           z-index: 999px;
           transition: $transition-normal;
         }
@@ -195,6 +211,14 @@
           transform: scale(1.15) translate(-42.5%, -42.5%);
           box-shadow: $box-shadow-m;
         }
+      }
+
+      .btn-play {
+        background: $bg-light url("~@/assets/images/btn-primary-play.svg") center center / cover no-repeat;
+      }
+
+      .btn-pause {
+        background: $bg-light url("~@/assets/images/btn-primary-pause.svg") center center / cover no-repeat;
       }
 
       .btn-stop {
@@ -264,14 +288,12 @@
     }
 
     .logo {
+      cursor: default;
       writing-mode: vertical-lr;
       font-size: $font-size-lg;
       font-family: $font-style-sencondary;
       font-weight: bold;
       margin-bottom: 3rem;
-      &:hover {
-        color: $font-color-primary;
-      }
     }
   }
 }

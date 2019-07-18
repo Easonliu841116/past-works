@@ -3,21 +3,32 @@
     <div class="pomodoro-container page-index">
       <main>
         <div class="main-container">
-          <!-- mission-input -->
           <form class="mission-input-container">
             <input class="mission-input" type="text" v-model="newMission"
             placeholder="ADD A NEW MISSION…" @keyup:enter.prevent="addMission"/>
             <button class="btn-add-mission" @click.prevent="addMission">+</button>
           </form>
-          <!-- countdown-number -->
           <div class="countdown-number">{{showTime}}</div>
-          <!-- mission-list -->
-          <ul class="mission-list-container">
-            <div id="done-missions">
+          <div class="mission-list-container">
+            <div class="doing-mission">
+                <li class="missions reset-doingMission-height">
+                  <input class="mission-selector" id="doingMission" name="mission-selector"
+                  type="checkbox" v-if="doingMission"/>
+                  <label class="mission-text reset-mission-text" for="doingMission"
+                  @click="deleteDoingMission" v-if="doingMission">
+                    <span class="fake-checkbox-lg"></span>
+                    {{doingMission}}
+                  </label>
+                  <label class="mission-text reset-mission-text" v-if="!doingMission">
+                    請先新增要做的事
+                  </label>
+                </li>
+            </div>
+            <ul>
               <draggable v-model="missions" handle=".btn-drag">
                 <li class="missions" v-for="(item, key) in missions.slice(0,3)"
-                v-show="!item.completed"
-                :key="key">
+                  v-show="!item.completed"
+                  :key="key">
                   <input class="mission-selector" :id="item.id" name="mission-selector"
                   type="checkbox"/>
                   <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
@@ -47,12 +58,14 @@
                   MORE
                 </router-link>
               </li>
-            </div>
-          </ul>
-          <!-- countdown-clock -->
+            </ul>
+          </div>
           <div class="countdown-clock-container">
             <div class="clock-surface">
-              <a href="#" @click.prevent="startCountdown" class="btn-play"></a>
+              <a href="#" @click.prevent="startCountdown" v-if="!timer.isCounted"
+              class="btn-control btn-play"></a>
+              <a href="#" @click.prevent="startCountdown" v-else
+              class="btn-control btn-pause"></a>
               <a href="#" @click.prevent class="btn-stop"></a>
             </div>
             <div class="clock-back"></div>
@@ -77,7 +90,7 @@
               </li>
             </ul>
             <h1 class="logo">
-              <a href="#" @click.prevent>POMODORO</a>
+              POMODORO
             </h1>
           </div>
         </div>
@@ -91,14 +104,13 @@ import { mapFields } from 'vuex-map-fields';
 import { mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import $ from 'jquery';
-import { setInterval } from 'timers';
 
 export default {
   data() {
     return {
-      showTime: null,
+      showTime: '25:00',
       timer: {
-        workTime: 300,
+        workTime: 1500,
         isCounted: false,
         controll: null,
       },
@@ -119,6 +131,9 @@ export default {
     ]),
     toggleComplete(el) {
       this.$store.dispatch('toggleCompleted', el);
+    },
+    deleteDoingMission() {
+      this.$store.dispatch('deleteDoingMission');
     },
     deleteMission(el) {
       this.$store.dispatch('deleteMission', el);
@@ -145,9 +160,14 @@ export default {
     },
     startCountdown() {
       const vm = this;
-      vm.timer.isCounted = !vm.timer.isCounted; // 點擊切換計時狀態 false: 停止
       // 假如是倒數狀態
-      if (vm.timer.isCounted) {
+      if (!vm.doingMission) {
+        // eslint-disable-next-line
+        alert('請先輸入要做的事');
+        return;
+      }
+      vm.timer.isCounted = !vm.timer.isCounted; // 點擊切換計時狀態 false: 停止
+      if (vm.timer.isCounted && vm.doingMission) {
       // 讓timer.controll進行倒數
         vm.timer.controll = setInterval(() => {
           vm.timer.workTime -= 1;

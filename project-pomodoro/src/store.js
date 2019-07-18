@@ -11,7 +11,7 @@ export default new Vuex.Store({
     missions: [],
     tempMissions: [],
     cacheMission: {},
-    doingMission: '' || 'POMODORO',
+    doingMission: '',
     cacheMissionTitle: '',
   },
   getters: {
@@ -44,6 +44,9 @@ export default new Vuex.Store({
     },
     COMPLETED(state, payload) {
       payload.completed = !payload.completed;
+    },
+    DELETEDOINGMISSION(state) {
+      state.doingMission.splice(0, 1);
     },
     DELETEMISSION(state, payload) {
       let deleteId = '';
@@ -86,6 +89,9 @@ export default new Vuex.Store({
     },
     toggleCompleted(context, payload) {
       context.commit('COMPLETED', payload);
+    },
+    deleteDoingMission(context) {
+      context.commit('DELETEDOINGMISSION');
     },
     deleteMission(context, payload) {
       context.commit('DELETEMISSION', payload);

@@ -132,15 +132,13 @@
   }
 
   .logo {
+    cursor: default;
     writing-mode: vertical-lr;
     font-size: $font-size-lg;
     font-family: $font-style-sencondary;
     font-weight: bold;
     margin-bottom: 3rem;
     color: $font-color-light;
-    &:hover {
-      color: $font-color-primary;
-    }
   }
 }
 
