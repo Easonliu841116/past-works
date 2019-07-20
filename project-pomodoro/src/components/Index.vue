@@ -15,11 +15,11 @@
                   <input class="mission-selector" id="doingMission" name="mission-selector"
                   type="checkbox" v-if="doingMission"/>
                   <label class="mission-text reset-mission-text" for="doingMission"
-                  @click="deleteDoingMission" v-if="doingMission">
+                  @click="deleteDoingMission(doingMission[0])" v-if="doingMission[0]">
                     <span class="fake-checkbox-lg"></span>
-                    {{doingMission}}
+                    {{doingMission[0].missionTitle}}
                   </label>
-                  <label class="mission-text reset-mission-text" v-if="!doingMission">
+                  <label class="mission-text reset-mission-text" v-if="!doingMission[0]">
                     請先新增要做的事
                   </label>
                 </li>
@@ -49,7 +49,7 @@
                     <a href="#" class="btn-delete mission-btn btn-hide"
                     @click.prevent="deleteMission(item)">×</a>
                     <a href="#" class="btn-start-count mission-btn"
-                    @click.prevent="addToTimer(item)"></a>
+                    @click.prevent="addToDoing(item)"></a>
                   </div>
                 </li>
               </draggable>
@@ -132,8 +132,8 @@ export default {
     toggleComplete(el) {
       this.$store.dispatch('toggleCompleted', el);
     },
-    deleteDoingMission() {
-      this.$store.dispatch('deleteDoingMission');
+    deleteDoingMission(el) {
+      this.$store.dispatch('deleteDoingMission', el);
     },
     deleteMission(el) {
       this.$store.dispatch('deleteMission', el);
@@ -155,13 +155,13 @@ export default {
       $('#done-missions').fadeToggle();
       $('#btn-done-dropdown').toggleClass('turn-opposite');
     },
-    addToTimer(el) {
-      this.$store.dispatch('addToTimer', el);
+    addToDoing(el) {
+      this.$store.dispatch('addToDoing', el);
     },
     startCountdown() {
       const vm = this;
       // 假如是倒數狀態
-      if (!vm.doingMission) {
+      if (!vm.doingMission[0]) {
         // eslint-disable-next-line
         alert('請先輸入要做的事');
         return;

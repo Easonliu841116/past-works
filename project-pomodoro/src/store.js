@@ -11,7 +11,7 @@ export default new Vuex.Store({
     missions: [],
     tempMissions: [],
     cacheMission: {},
-    doingMission: '',
+    doingMission: [],
     cacheMissionTitle: '',
   },
   getters: {
@@ -45,7 +45,9 @@ export default new Vuex.Store({
     COMPLETED(state, payload) {
       payload.completed = !payload.completed;
     },
-    DELETEDOINGMISSION(state) {
+    DELETEDOINGMISSION(state, payload) {
+      payload.completed = true;
+      state.missions.push(payload);
       state.doingMission.splice(0, 1);
     },
     DELETEMISSION(state, payload) {
@@ -76,7 +78,7 @@ export default new Vuex.Store({
         return deleteId;
       });
       state.missions.splice(deleteId, 1);
-      state.doingMission = payload.missionTitle;
+      state.doingMission.push(payload);
     },
     COUNTCONTROLLER(state) {
       state.timer.isPaused = !state.timer.isPaused;
@@ -90,8 +92,8 @@ export default new Vuex.Store({
     toggleCompleted(context, payload) {
       context.commit('COMPLETED', payload);
     },
-    deleteDoingMission(context) {
-      context.commit('DELETEDOINGMISSION');
+    deleteDoingMission(context, payload) {
+      context.commit('DELETEDOINGMISSION', payload);
     },
     deleteMission(context, payload) {
       context.commit('DELETEMISSION', payload);
@@ -104,7 +106,7 @@ export default new Vuex.Store({
     finishEdit(context, payload) {
       context.commit('FINISHEDIT', payload);
     },
-    addToTimer(context, payload) {
+    addToDoing(context, payload) {
       context.commit('DOINGMISSION', payload);
     },
   },

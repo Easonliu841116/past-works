@@ -39,7 +39,7 @@
               <a href="#" class="btn-delete mission-btn btn-hide"
               @click.prevent="deleteMission(item)">×</a>
               <a href="#" class="btn-start-count mission-btn"
-              @click.prevent="addToTimer(item)"></a>
+              @click.prevent="addToDoing(item)"></a>
             </div>
           </li>
         </draggable>
@@ -74,7 +74,7 @@
               <a href="#" class="btn-delete mission-btn btn-hide"
               @click.prevent="deleteMission(item)">×</a>
               <a href="#" class="btn-start-count mission-btn"
-              @click.prevent="addToTimer(item)"></a>
+              @click.prevent="addToDoing(item)"></a>
             </div>
           </li>
         </draggable>
@@ -125,8 +125,8 @@ export default {
       $('#done-missions').fadeToggle();
       $('#btn-done-dropdown').toggleClass('turn-opposite');
     },
-    addToTimer(el) {
-      this.$store.dispatch('addToTimer', el);
+    addToDoing(el) {
+      this.$store.dispatch('addToDoing', el);
     },
   },
   components: {
