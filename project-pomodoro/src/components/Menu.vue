@@ -28,15 +28,18 @@
               <li>
                 <div class="btn-play-bg">
                   <div class="btn-control-container">
-                    <a class="btn-controller btn-play" href="#"
-                    @click.prevent></a>
-                    <!-- <a class="btn-controller btn-pause" href="#" v-else
-                    @click.prevent="toggleCount()"></a> -->
+                    <a class="btn-controller btn-play" href="#" v-if="!timeData.isCounted"
+                    @click.prevent="emitStartCountdown"></a>
+                    <a class="btn-controller btn-pause" href="#" v-else
+                    @click.prevent="emitStartCountdown"></a>
                   </div>
                 </div>
               </li>
-              <li class="countdown-number">00:00</li>
-              <li class="mission-text">{{doingMission}}</li>
+              <li class="countdown-number">{{timeData.showTime}}</li>
+              <li class="mission-text" v-if="doingMission[0]">
+                {{doingMission[0].missionTitle}}
+              </li>
+              <li class="mission-text" v-else>請先新增要做的事</li>
             </ul>
           </div>
         </div>
@@ -45,7 +48,7 @@
       <aside>
         <div class="aside-container">
           <div class="btn-back">
-            <router-link :to="{ name:'Index' }">×</router-link>
+            <a href="#" @click.prevent="emitGoMenu">×</a>
           </div>
           <h1 class="logo">
             POMODORO
@@ -57,17 +60,32 @@
 </template>
 
 <script>
-// import { mapFields } from 'vuex-map-fields';
-import { mapGetters } from 'vuex';
+import { mapFields } from 'vuex-map-fields';
+// import { mapGetters } from 'vuex';
 // import $ from 'jquery';
 
 export default {
+  props: {
+    timeData: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+
+  },
   computed: {
-    ...mapGetters([
+    ...mapFields([
       'doingMission',
     ]),
   },
   methods: {
+    emitGoMenu() {
+      this.$emit('emitGoMenu');
+    },
+    emitStartCountdown() {
+      this.$emit('emitStartCountdown');
+    },
   },
 };
 </script>

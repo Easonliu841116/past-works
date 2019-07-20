@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="pomodoro-container page-index">
+    <Menu v-if="isGoMenu" @emitGoMenu="goMenu" @emitStartCountdown="startCountdown"
+    :timeData="timer"/>
+    <div class="pomodoro-container page-index" v-else>
       <main>
         <div class="main-container">
           <form class="mission-input-container">
@@ -8,7 +10,7 @@
             placeholder="ADD A NEW MISSION…" @keyup:enter.prevent="addMission"/>
             <button class="btn-add-mission" @click.prevent="addMission">+</button>
           </form>
-          <div class="countdown-number">{{showTime}}</div>
+          <div class="countdown-number">{{timer.showTime}}</div>
           <div class="mission-list-container">
             <div class="doing-mission">
                 <li class="missions reset-doingMission-height">
@@ -77,8 +79,8 @@
           <div class="menu-container">
             <ul class="btn-menu-group">
               <li>
-                <router-link class="btn-menu btn-light-list"
-                :to="{ name:'TodoList' }"></router-link>
+                <a class="btn-menu btn-light-list" href="#"
+                @click.prevent="goMenu"></a>
               </li>
               <li>
                 <router-link class="btn-menu btn-light-analytics"
@@ -104,15 +106,20 @@ import { mapFields } from 'vuex-map-fields';
 import { mapActions } from 'vuex';
 import draggable from 'vuedraggable';
 import $ from 'jquery';
+import Menu from './Menu.vue';
 
 export default {
   data() {
     return {
-      showTime: '25:00',
+      isGoMenu: false,
       timer: {
-        workTime: 1500,
+        showTime: '00:00',
+        currentTime: 10,
+        breakTime: 5,
         isCounted: false,
         controll: null,
+        mode: 1,
+        toggleMode: false,
       },
     };
   },
@@ -158,6 +165,9 @@ export default {
     addToDoing(el) {
       this.$store.dispatch('addToDoing', el);
     },
+    goMenu() {
+      this.isGoMenu = !this.isGoMenu;
+    },
     startCountdown() {
       const vm = this;
       // 假如是倒數狀態
@@ -168,12 +178,21 @@ export default {
       }
       vm.timer.isCounted = !vm.timer.isCounted; // 點擊切換計時狀態 false: 停止
       if (vm.timer.isCounted && vm.doingMission) {
-      // 讓timer.controll進行倒數
         vm.timer.controll = setInterval(() => {
-          vm.timer.workTime -= 1;
-          const min = Math.floor(vm.timer.workTime / 60);
-          const sec = vm.timer.workTime % 60;
-          vm.showTime = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+          if (vm.timer.currentTime === 0) {
+            vm.timer.currentTime = vm.timer.breakTime;
+            vm.timer.isCounted = !vm.timer.isCounted;
+            vm.timer.mode += 1;
+            clearInterval(vm.timer.controll);
+            if (vm.timer.mode === 3) {
+              vm.deleteDoingMission(vm.doingMission[0]);
+              return;
+            }
+          }
+          vm.timer.currentTime -= 1;
+          const min = Math.floor(vm.timer.currentTime / 60);
+          const sec = vm.timer.currentTime % 60;
+          vm.timer.showTime = `${min}:${sec < 10 ? '0' : ''}${sec}`;
         }, 1000);
       } else { // 非倒數狀態
         // 清除timer.controll的計時
@@ -183,6 +202,7 @@ export default {
   },
   components: {
     draggable,
+    Menu,
   },
 };
 </script>
