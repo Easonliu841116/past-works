@@ -179,6 +179,11 @@
         color: darken($font-color-primary, 20%);
       }
     }
+    .btn-link-secondary{
+      &:hover {
+        color: darken($font-color-secondary, 20%) !important;
+      }
+    }
   }
   .countdown-clock-container {
     @include position-absolute(560px, 130px) {
@@ -215,10 +220,18 @@
 
       .btn-play {
         background: $bg-light url("~@/assets/images/btn-primary-play.svg") center center / cover no-repeat;
+      
+      }
+      .btn-secondary-play {
+        background: $bg-light url("~@/assets/images/btn-secondary-play.svg") center center / cover no-repeat !important;
       }
 
       .btn-pause {
         background: $bg-light url("~@/assets/images/btn-primary-pause.svg") center center / cover no-repeat;
+      }
+
+      .btn-secondary-pause {
+        background: $bg-light url("~@/assets/images/btn-secondary-pause.svg") center center / cover no-repeat !important;
       }
 
       .btn-stop {

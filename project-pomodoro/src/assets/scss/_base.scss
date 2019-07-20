@@ -11,6 +11,28 @@
   text-decoration: line-through;
 }
 
-.turn-opposite{
-  transform: rotate(180deg) !important;
+.bg-secondary{
+  background-color: $bg-secondary !important;
+}
+
+.font-color-primary{
+  color: $bg-primary !important;
+}
+
+.font-color-secondary{
+  color: $bg-secondary !important;
+  &::placeholder{
+    color: $bg-secondary !important;
+  }
+}
+
+.btnSecondHover{
+  &:hover{
+    color: $font-color-light !important;
+    background-color: $bg-secondary !important;
+  }
+}
+
+.bg-lighten-secondary{
+  background-color: $bg-lighten-secondary !important;
 }

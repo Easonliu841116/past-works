@@ -4,13 +4,16 @@
     :timeData="timer"/>
     <div class="pomodoro-container page-index" v-else>
       <main>
-        <div class="main-container">
+        <div class="main-container" :class="{'bg-lighten-secondary':timer.mode === 2}">
           <form class="mission-input-container">
             <input class="mission-input" type="text" v-model="newMission"
+            :class="{'font-color-secondary':timer.mode === 2}"
             placeholder="ADD A NEW MISSION…" @keyup:enter.prevent="addMission"/>
-            <button class="btn-add-mission" @click.prevent="addMission">+</button>
+            <button class="btn-add-mission" @click.prevent="addMission"
+            :class="{'font-color-secondary btnSecondHover':timer.mode === 2}">+</button>
           </form>
-          <div class="countdown-number">{{timer.showTime}}</div>
+          <div class="countdown-number" :class="{'font-color-secondary':timer.mode === 2}"
+          >{{timer.showTime}}</div>
           <div class="mission-list-container">
             <div class="doing-mission">
                 <li class="missions reset-doingMission-height">
@@ -56,18 +59,19 @@
                 </li>
               </draggable>
               <li>
-                <router-link class="btn-link-primary" :to="{ name:'TodoList' }">
+                <a :class="{'font-color-secondary btn-link-secondary':timer.mode === 2}"
+                class="btn-link-primary" @click.prevent="goMenu" href="#">
                   MORE
-                </router-link>
+                </a>
               </li>
             </ul>
           </div>
           <div class="countdown-clock-container">
-            <div class="clock-surface">
+            <div class="clock-surface" :class="{'bg-secondary':timer.mode === 2}">
               <a href="#" @click.prevent="startCountdown" v-if="!timer.isCounted"
-              class="btn-control btn-play"></a>
+              class="btn-control btn-play" :class="{'btn-secondary-play':timer.mode === 2}"></a>
               <a href="#" @click.prevent="startCountdown" v-else
-              class="btn-control btn-pause"></a>
+              class="btn-control btn-pause" :class="{'btn-secondary-pause':timer.mode === 2}"></a>
               <a href="#" @click.prevent class="btn-stop"></a>
             </div>
             <div class="clock-back"></div>
@@ -83,12 +87,12 @@
                 @click.prevent="goMenu"></a>
               </li>
               <li>
-                <router-link class="btn-menu btn-light-analytics"
-                :to="{ name:'Analytics' }"></router-link>
+                <a class="btn-menu btn-light-analytics"
+                @click.prevent="goMenu('analytics')" href="#"></a>
               </li>
               <li>
-                <router-link class="btn-menu btn-light-ringtone"
-                :to="{ name:'Ringtone' }"></router-link>
+                <a class="btn-menu btn-light-ringtone"
+                @click.prevent="goMenu('ringtone')" href="#"></a>
               </li>
             </ul>
             <h1 class="logo">
@@ -113,8 +117,8 @@ export default {
     return {
       isGoMenu: false,
       timer: {
-        showTime: '00:00',
-        currentTime: 10,
+        showTime: '25:00',
+        currentTime: 2,
         breakTime: 5,
         isCounted: false,
         controll: null,
@@ -165,8 +169,12 @@ export default {
     addToDoing(el) {
       this.$store.dispatch('addToDoing', el);
     },
-    goMenu() {
-      this.isGoMenu = !this.isGoMenu;
+    goMenu(el) {
+      const vm = this;
+      if (el) {
+        vm.$router.push(`${el}`);
+      }
+      vm.isGoMenu = !vm.isGoMenu;
     },
     startCountdown() {
       const vm = this;
@@ -185,6 +193,8 @@ export default {
             vm.timer.mode += 1;
             clearInterval(vm.timer.controll);
             if (vm.timer.mode === 3) {
+              vm.timer.mode = 1;
+              clearInterval(vm.timer.controll);
               vm.deleteDoingMission(vm.doingMission[0]);
               return;
             }
@@ -192,7 +202,7 @@ export default {
           vm.timer.currentTime -= 1;
           const min = Math.floor(vm.timer.currentTime / 60);
           const sec = vm.timer.currentTime % 60;
-          vm.timer.showTime = `${min}:${sec < 10 ? '0' : ''}${sec}`;
+          vm.timer.showTime = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
         }, 1000);
       } else { // 非倒數狀態
         // 清除timer.controll的計時

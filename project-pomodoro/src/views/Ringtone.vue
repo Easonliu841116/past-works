@@ -5,109 +5,12 @@
         <span>WORK</span>
       </div>
       <ul class="ringtone-list-wrapper">
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-none" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-none">
+        <li class="ringtones" v-for="(item, key) in audioPlayer" :key="key">
+          <input class="ringtone-selector" :value="item"
+           :id="`w-${item}`" name="ringtone-work" type="radio" @click="playSound(item)"/>
+          <label class="ringtone-text" :for="`w-${item}`">
             <span></span>
-            NONE
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-alert" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-alert">
-            <span></span>
-            ALERT
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-bird" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-bird">
-            <span></span>
-            BIRD
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-drop" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-drop">
-            <span></span>
-            DROP
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-ring" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-ring">
-            <span></span>
-            RING
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-default" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-default">
-            <span></span>
-            DEFAULT
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-beep" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-beep">
-            <span></span>
-            BEEP
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-bugle" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-bugle">
-            <span></span>
-            BUGLE
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-horn" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-horn">
-            <span></span>
-            HORN
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-warning" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-warning">
-            <span></span>
-            WARNING
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-alarm" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-alarm">
-            <span></span>
-            ALARM
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-bell" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-bell">
-            <span></span>
-            BELL
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-digital" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-digital">
-            <span></span>
-            DIGITAL
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-music" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-music">
-            <span></span>
-            MUSIC
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="w-whistle" name="ringtone-work" type="radio" />
-          <label class="ringtone-text" for="w-whistle">
-            <span></span>
-            WHISTLE
+            {{item.toUpperCase()}}
           </label>
         </li>
       </ul>
@@ -117,118 +20,71 @@
         <span>WORK</span>
       </div>
       <ul class="ringtone-list-wrapper">
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-none" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-none">
+        <li class="ringtones" v-for="(item, key) in audioPlayer" :key="key">
+          <input class="ringtone-selector" :value="item"
+           :id="`b-${item}`" name="ringtone-break" type="radio" />
+          <label class="ringtone-text" :for="`b-${item}`">
             <span></span>
-            NONE
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-alert" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-alert">
-            <span></span>
-            ALERT
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-bird" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-bird">
-            <span></span>
-            BIRD
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-drop" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-drop">
-            <span></span>
-            DROP
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-ring" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-ring">
-            <span></span>
-            RING
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-default" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-default">
-            <span></span>
-            DEFAULT
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-beep" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-beep">
-            <span></span>
-            BEEP
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-bugle" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-bugle">
-            <span></span>
-            BUGLE
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-horn" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-horn">
-            <span></span>
-            HORN
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-warning" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-warning">
-            <span></span>
-            WARNING
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-alarm" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-alarm">
-            <span></span>
-            ALARM
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-bell" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-bell">
-            <span></span>
-            BELL
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-digital" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-digital">
-            <span></span>
-            DIGITAL
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-music" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-music">
-            <span></span>
-            MUSIC
-          </label>
-        </li>
-        <li class="ringtones">
-          <input class="ringtone-selector" id="b-whistle" name="ringtone-break" type="radio" />
-          <label class="ringtone-text" for="b-whistle">
-            <span></span>
-            WHISTLE
+            {{item.toUpperCase()}}
           </label>
         </li>
       </ul>
     </div>
+    <audio  data-key="alert" src="../assets/media/alert.mp3"></audio>
+    <audio  data-key="bird" src="../assets/media/bird.mp3"></audio>
+    <audio  data-key="drop" src="../assets/media/drop.mp3"></audio>
+    <audio  data-key="ring" src="../assets/media/ring.mp3"></audio>
+    <audio  data-key="default" src="../assets/media/default.mp3"></audio>
+    <audio  data-key="beep" src="../assets/media/beep.mp3"></audio>
+    <audio  data-key="bugle" src="../assets/media/bugle.mp3"></audio>
+    <audio  data-key="horn" src="../assets/media/horn.mp3"></audio>
+    <audio  data-key="warning" src="../assets/media/warning.mp3"></audio>
+    <audio  data-key="alarm" src="../assets/media/alarm.mp3"></audio>
+    <audio  data-key="bell" src="../assets/media/bell.mp3"></audio>
+    <audio  data-key="digital" src="../assets/media/digital.mp3"></audio>
+    <audio  data-key="music" src="../assets/media/music.mp3"></audio>
+    <audio  data-key="whistle" src="../assets/media/whistle.mp3"></audio>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      audio: null,
+      audioPlayer: [
+        'none',
+        'alert',
+        'bird',
+        'drop',
+        'ring',
+        'default',
+        'beep',
+        'bugle',
+        'horn',
+        'warning',
+        'alarm',
+        'bell',
+        'digital',
+        'music',
+        'whistle',
+      ],
+    };
+  },
+  methods: {
+    playSound(el) {
+      const vm = this;
+      if (el !== 'none') {
+        const sound = document.querySelector(`audio[data-key = "${el}"]`);
+        vm.audio = new Audio(`../assets/media/${el}.mp3`);
+        sound.addEventListener('click', vm.play());
+      }
+    },
+    play() {
+      this.audio.play();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

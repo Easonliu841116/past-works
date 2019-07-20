@@ -39,6 +39,15 @@
       .btn-muted-ringtone {
         background: url("~@/assets/images/btn-muted-ringtone.svg") center center / cover no-repeat;
       }
+      .btn-primary-list {
+        background: url("~@/assets/images/btn-primary-list.svg") center center / cover no-repeat !important;
+      }
+      .btn-primary-analytics {
+        background: url("~@/assets/images/btn-primary-analytics.svg") center center / cover no-repeat !important;
+      }
+      .btn-primary-ringtone {
+        background: url("~@/assets/images/btn-primary-ringtone.svg") center center / cover no-repeat !important;
+      }
     }
   }
 
@@ -89,12 +98,28 @@
               center center / cover no-repeat !important;
             }
           }
+          .btn-secondary-play {
+            background: $bg-secondary url("~@/assets/images/btn-light-play.svg")
+            center center / cover no-repeat !important;
+            &:hover {
+              background: $bg-lighten-primary url("~@/assets/images/btn-secondary-play.svg")
+              center center / cover no-repeat !important;
+            }
+          }
           .btn-pause {
             background: $bg-primary url("~@/assets/images/btn-light-pause.svg")
             center center / cover no-repeat !important;
             &:hover {
               background: $bg-lighten-primary
               url("~@/assets/images/btn-primary-pause.svg") center center / cover no-repeat !important;
+            }
+          }
+          .btn-secondary-pause {
+            background: $bg-secondary url("~@/assets/images/btn-light-pause.svg")
+            center center / cover no-repeat !important;
+            &:hover {
+              background: $bg-lighten-primary url("~@/assets/images/btn-secondary-pause.svg")
+              center center / cover no-repeat !important;
             }
           }
         }

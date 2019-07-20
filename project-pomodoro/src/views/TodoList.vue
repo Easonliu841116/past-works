@@ -5,10 +5,12 @@
         v-model="newMission"
         type="text"
         class="mission-input"
+        :class="{'font-color-secondary':subTimeData.mode === 2}"
         placeholder="ADD A NEW MISSION…"
         @keyup:enter.prevent="addMission"
       />
-      <button class="btn-add-mission" @click.prevent="addMission">+</button>
+      <button class="btn-add-mission" @click.prevent="addMission"
+      :class="{'font-color-secondary btnSecondHover':subTimeData.mode === 2}">+</button>
     </form>
     <ul class="mission-list-container">
       <li class="mission-title">
@@ -90,6 +92,14 @@ import $ from 'jquery';
 import draggable from 'vuedraggable';
 
 export default {
+  props: {
+    subTimeData: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
   computed: {
     ...mapFields([
       'newMission',
