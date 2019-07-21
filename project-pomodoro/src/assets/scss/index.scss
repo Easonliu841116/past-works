@@ -67,6 +67,8 @@
     }
     .doing-mission {
       @include position-absolute(0, -350px, 0, 0);
+      width: 445px;
+      overflow: hidden;
     }
     .reset-doingMission-height {
       border: 0 !important;
@@ -76,6 +78,7 @@
       @include d-flex(row, space-between, flex-start) {
         padding: 0.5rem 0;
         border-bottom: 1px solid rgba(0, 49, 100, 0.2);
+        position: relative;
       }
       &:hover > .btn-group > .btn-hide {
         opacity: 1 !important;
@@ -84,6 +87,22 @@
         @include d-flex(row, flex-start) {
           cursor: pointer;
           transition: $transition-normal;
+        }
+        .pomodoro-container {
+          position: absolute;
+          top: 65%;
+          left: 12%;
+          .pomodoro-qty {
+            display: flex;
+            width: 0.7rem;
+            height: 0.7rem;
+            background: $bg-dark;
+            margin-left: 0.1rem;
+            border-radius: 50%;
+            text-indent: 101%;
+            overflow: hidden;
+            white-space: nowrap;
+          }
         }
       }
       .reset-mission-text {
@@ -179,12 +198,17 @@
         color: darken($font-color-primary, 20%);
       }
     }
-    .btn-link-secondary{
+    .btn-link-secondary {
       &:hover {
         color: darken($font-color-secondary, 20%) !important;
       }
     }
   }
+
+  .secondary-border {
+    border: 4px solid $bg-secondary !important;
+  }
+
   .countdown-clock-container {
     @include position-absolute(560px, 130px) {
       @include d-flex() {
@@ -220,18 +244,17 @@
 
       .btn-play {
         background: $bg-light url("~@/assets/images/btn-primary-play.svg") center center / cover no-repeat;
-      
       }
       .btn-secondary-play {
         background: $bg-light url("~@/assets/images/btn-secondary-play.svg") center center / cover no-repeat !important;
       }
 
       .btn-pause {
-        background: $bg-light url("~@/assets/images/btn-primary-pause.svg") center center / cover no-repeat;
+        background: $bg-primary url("~@/assets/images/btn-light-pause.svg") center center / cover no-repeat;
       }
 
       .btn-secondary-pause {
-        background: $bg-light url("~@/assets/images/btn-secondary-pause.svg") center center / cover no-repeat !important;
+        background: $bg-secondary url("~@/assets/images/btn-light-pause.svg") center center / cover no-repeat !important;
       }
 
       .btn-stop {

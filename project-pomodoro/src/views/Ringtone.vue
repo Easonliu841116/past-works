@@ -7,43 +7,78 @@
       <ul class="ringtone-list-wrapper">
         <li class="ringtones" v-for="(item, key) in audioPlayer" :key="key">
           <input class="ringtone-selector" :value="item"
-           :id="`w-${item}`" name="ringtone-work" type="radio" @click="playSound(item)"/>
+           :id="`w-${item}`" name="ringtone-work" type="radio" @click="playSound(item, true, 1)"/>
           <label class="ringtone-text" :for="`w-${item}`">
             <span></span>
             {{item.toUpperCase()}}
+            <a class="stop-play" href="#" @click.prevent="playSound(item, false, 1)">×</a>
           </label>
         </li>
       </ul>
     </div>
     <div class="ringtone-list-container">
       <div class="ringtone-title">
-        <span>WORK</span>
+        <span>BREAK</span>
       </div>
       <ul class="ringtone-list-wrapper">
         <li class="ringtones" v-for="(item, key) in audioPlayer" :key="key">
           <input class="ringtone-selector" :value="item"
-           :id="`b-${item}`" name="ringtone-break" type="radio" />
+           :id="`b-${item}`" name="ringtone-break" type="radio" @click="playSound(item, true, 2)"/>
           <label class="ringtone-text" :for="`b-${item}`">
             <span></span>
             {{item.toUpperCase()}}
+            <a class="stop-play" href="#" @click.prevent="playSound(item, false, 2)">×</a>
           </label>
         </li>
       </ul>
     </div>
-    <audio  data-key="alert" src="../assets/media/alert.mp3"></audio>
-    <audio  data-key="bird" src="../assets/media/bird.mp3"></audio>
-    <audio  data-key="drop" src="../assets/media/drop.mp3"></audio>
-    <audio  data-key="ring" src="../assets/media/ring.mp3"></audio>
-    <audio  data-key="default" src="../assets/media/default.mp3"></audio>
-    <audio  data-key="beep" src="../assets/media/beep.mp3"></audio>
-    <audio  data-key="bugle" src="../assets/media/bugle.mp3"></audio>
-    <audio  data-key="horn" src="../assets/media/horn.mp3"></audio>
-    <audio  data-key="warning" src="../assets/media/warning.mp3"></audio>
-    <audio  data-key="alarm" src="../assets/media/alarm.mp3"></audio>
-    <audio  data-key="bell" src="../assets/media/bell.mp3"></audio>
-    <audio  data-key="digital" src="../assets/media/digital.mp3"></audio>
-    <audio  data-key="music" src="../assets/media/music.mp3"></audio>
-    <audio  data-key="whistle" src="../assets/media/whistle.mp3"></audio>
+    <div id="audio">
+      <audio  data-key="alert" >
+        <source src="../assets/media/alert.mp3">
+      </audio>
+      <audio  data-key="bird">
+        <source src="../assets/media/bird.mp3">
+      </audio>
+      <audio  data-key="drop">
+        <source src="../assets/media/drop.mp3">
+      </audio>
+      <audio  data-key="ring">
+        <source src="../assets/media/ring.mp3">
+      </audio>
+      <audio  data-key="default">
+        <source src="../assets/media/default.mp3">
+      </audio>
+      <audio  data-key="beep">
+        <source src="../assets/media/beep.mp3">
+      </audio>
+      <audio  data-key="bugle">
+        <source src="../assets/media/bugle.mp3">
+      </audio>
+      <audio  data-key="horn">
+        <source src="../assets/media/horn.mp3">
+      </audio>
+      <audio  data-key="warning">
+        <source src="../assets/media/warning.mp3">
+      </audio>
+      <audio  data-key="alarm">
+        <source src="../assets/media/alarm.mp3">
+      </audio>
+      <audio  data-key="bell">
+        <source src="../assets/media/bell.mp3">
+      </audio>
+      <audio  data-key="digital">
+        <source src="../assets/media/digital.mp3">
+      </audio>
+      <audio  data-key="music">
+        <source src="../assets/media/music.mp3">
+      </audio>
+      <audio  data-key="whistle">
+        <source src="../assets/media/whistle.mp3">
+      </audio>
+      <audio  data-key="none">
+        <source src="../assets/media/none.mp3">
+      </audio>
+    </div>
   </div>
 </template>
 
@@ -72,16 +107,16 @@ export default {
     };
   },
   methods: {
-    playSound(el) {
+    playSound(el, isPlay, type) {
       const vm = this;
-      if (el !== 'none') {
-        const sound = document.querySelector(`audio[data-key = "${el}"]`);
-        vm.audio = new Audio(`../assets/media/${el}.mp3`);
-        sound.addEventListener('click', vm.play());
+      const sound = document.querySelector(`audio[data-key = "${el}"]`);
+      if (isPlay) {
+        sound.currentTime = 0;
+        sound.play();
+        vm.$store.dispatch('changeSound', { el, type });
+      } else {
+        sound.pause();
       }
-    },
-    play() {
-      this.audio.play();
     },
   },
 };

@@ -33,7 +33,8 @@
             <ul class="countdown-clock-wrapper">
               <li>
                 <div class="btn-play-bg">
-                  <div class="btn-control-container">
+                  <div class="btn-control-container"
+                  :class="{'secondary-border':timeData.mode === 2}">
                     <a class="btn-controller btn-play" href="#" v-if="!timeData.isCounted"
                     @click.prevent="emitStartCountdown"
                     :class="{'btn-secondary-play':timeData.mode === 2}"></a>

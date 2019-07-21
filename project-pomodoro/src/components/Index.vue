@@ -2,7 +2,8 @@
   <div>
     <Menu v-if="isGoMenu" @emitGoMenu="goMenu" @emitStartCountdown="startCountdown"
     :timeData="timer"/>
-    <div class="pomodoro-container page-index" v-else>
+    <div class="pomodoro-container page-index" v-else
+    @click="playSound(alertSound.workAlert, false), playSound(alertSound.breakAlert, false)">
       <main>
         <div class="main-container" :class="{'bg-lighten-secondary':timer.mode === 2}">
           <form class="mission-input-container">
@@ -23,6 +24,12 @@
                   @click="deleteDoingMission(doingMission[0])" v-if="doingMission[0]">
                     <span class="fake-checkbox-lg"></span>
                     {{doingMission[0].missionTitle}}
+                    <div v-if="doingMission[0].pomodoros" class="pomodoro-container">
+                      <div class="pomodoro-qty"
+                      v-for="(item, key) in doingMission[0].pomodoros" :key="key">
+                      {{item}}
+                      </div>
+                    </div>
                   </label>
                   <label class="mission-text reset-mission-text" v-if="!doingMission[0]">
                     請先新增要做的事
@@ -66,15 +73,18 @@
               </li>
             </ul>
           </div>
-          <div class="countdown-clock-container">
-            <div class="clock-surface" :class="{'bg-secondary':timer.mode === 2}">
+          <div class="countdown-clock-container" :class="{'secondary-border':timer.mode === 2}">
+            <div class="clock-surface" :class="{'bg-secondary':timer.mode === 2,
+            'bg-light':timer.isCounted}">
               <a href="#" @click.prevent="startCountdown" v-if="!timer.isCounted"
               class="btn-control btn-play" :class="{'btn-secondary-play':timer.mode === 2}"></a>
               <a href="#" @click.prevent="startCountdown" v-else
               class="btn-control btn-pause" :class="{'btn-secondary-pause':timer.mode === 2}"></a>
-              <a href="#" @click.prevent class="btn-stop"></a>
+              <a href="#" @click.prevent="stopCount" class="btn-stop"
+              :class="{'bg-secondary':timer.mode === 2 && timer.isCounted,
+              'bg-primary':timer.isCounted}"
+              ></a>
             </div>
-            <div class="clock-back"></div>
           </div>
         </div>
       </main>
@@ -102,6 +112,53 @@
         </div>
       </aside>
     </div>
+        <div id="audio">
+      <audio  data-key="alert" >
+        <source src="../assets/media/alert.mp3">
+      </audio>
+      <audio  data-key="bird">
+        <source src="../assets/media/bird.mp3">
+      </audio>
+      <audio  data-key="drop">
+        <source src="../assets/media/drop.mp3">
+      </audio>
+      <audio  data-key="ring">
+        <source src="../assets/media/ring.mp3">
+      </audio>
+      <audio  data-key="default">
+        <source src="../assets/media/default.mp3">
+      </audio>
+      <audio  data-key="beep">
+        <source src="../assets/media/beep.mp3">
+      </audio>
+      <audio  data-key="bugle">
+        <source src="../assets/media/bugle.mp3">
+      </audio>
+      <audio  data-key="horn">
+        <source src="../assets/media/horn.mp3">
+      </audio>
+      <audio  data-key="warning">
+        <source src="../assets/media/warning.mp3">
+      </audio>
+      <audio  data-key="alarm">
+        <source src="../assets/media/alarm.mp3">
+      </audio>
+      <audio  data-key="bell">
+        <source src="../assets/media/bell.mp3">
+      </audio>
+      <audio  data-key="digital">
+        <source src="../assets/media/digital.mp3">
+      </audio>
+      <audio  data-key="music">
+        <source src="../assets/media/music.mp3">
+      </audio>
+      <audio  data-key="whistle">
+        <source src="../assets/media/whistle.mp3">
+      </audio>
+      <audio  data-key="none">
+        <source src="../assets/media/none.mp3">
+      </audio>
+    </div>
   </div>
 </template>
 
@@ -118,10 +175,10 @@ export default {
       isGoMenu: false,
       timer: {
         showTime: '25:00',
-        currentTime: 2,
-        breakTime: 5,
+        currentTime: 1500,
+        breakTime: 301,
         isCounted: false,
-        controll: null,
+        control: null,
         mode: 1,
         toggleMode: false,
       },
@@ -134,6 +191,7 @@ export default {
       'cacheMissionTitle',
       'missions',
       'doingMission',
+      'alertSound',
     ]),
   },
   methods: {
@@ -167,7 +225,11 @@ export default {
       $('#btn-done-dropdown').toggleClass('turn-opposite');
     },
     addToDoing(el) {
-      this.$store.dispatch('addToDoing', el);
+      const vm = this;
+      if (this.doingMission[0]) {
+        vm.stopCount();
+      }
+      vm.$store.dispatch('addToDoing', el);
     },
     goMenu(el) {
       const vm = this;
@@ -186,16 +248,32 @@ export default {
       }
       vm.timer.isCounted = !vm.timer.isCounted; // 點擊切換計時狀態 false: 停止
       if (vm.timer.isCounted && vm.doingMission) {
-        vm.timer.controll = setInterval(() => {
+        vm.timer.control = setInterval(() => {
           if (vm.timer.currentTime === 0) {
+            if (vm.timer.mode === 1) {
+              vm.playSound(vm.alertSound.workAlert, true);
+              setTimeout(() => {
+                vm.playSound(vm.alertSound.workAlert, false);
+              }, 3000);
+            }
+            if (vm.timer.mode === 2) {
+              vm.playSound(vm.alertSound.breakAlert, true);
+              setTimeout(() => {
+                vm.playSound(vm.alertSound.breakAlert, false);
+              }, 3000);
+            }
+            setTimeout(() => {
+            // eslint-disable-next-line
+              alert('時間到囉！請點擊周遭以取消鬧鈴');
+            }, 1000);
             vm.timer.currentTime = vm.timer.breakTime;
             vm.timer.isCounted = !vm.timer.isCounted;
             vm.timer.mode += 1;
-            clearInterval(vm.timer.controll);
+            clearInterval(vm.timer.control);
             if (vm.timer.mode === 3) {
+              vm.$store.dispatch('addPomodoro', vm.doingMission[0]);
               vm.timer.mode = 1;
-              clearInterval(vm.timer.controll);
-              vm.deleteDoingMission(vm.doingMission[0]);
+              vm.timer.currentTime = 1500;
               return;
             }
           }
@@ -205,14 +283,41 @@ export default {
           vm.timer.showTime = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
         }, 1000);
       } else { // 非倒數狀態
-        // 清除timer.controll的計時
-        clearInterval(vm.timer.controll);
+        // 清除timer.control的計時
+        clearInterval(vm.timer.control);
+      }
+    },
+    playSound(el, isPlay) {
+      const sound = document.querySelector(`audio[data-key = "${el}"]`);
+      if (el !== 'none' && isPlay) {
+        sound.currentTime = 0;
+        sound.load();
+        sound.play();
+      } else {
+        sound.pause();
+      }
+    },
+    stopCount() {
+      const vm = this;
+      if (vm.doingMission[0]) {
+        vm.deleteDoingMission(vm.doingMission[0]);
+        clearInterval(vm.timer.control);
+        vm.timer.mode = 1;
+        vm.timer.isCounted = false;
+        vm.timer.currentTime = 1500;
+        vm.timer.showTime = '25:00';
       }
     },
   },
   components: {
     draggable,
     Menu,
+  },
+  created() {
+    const vm = this;
+    vm.$bus.$on('addToDoing', (el) => {
+      vm.addToDoing(el);
+    });
   },
 };
 </script>

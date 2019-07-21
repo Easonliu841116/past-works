@@ -55,7 +55,8 @@
       </li>
       <div id="done-missions">
         <draggable v-model="missions" handle=".btn-drag">
-          <li class="missions" v-for="(item, key) in missions" :key="key" v-show="item.completed">
+          <li class="missions"
+            v-for="(item, key) in missions" :key="key" v-show="item.completed">
             <input class="mission-selector" :id="item.id" name="mission-selector"
             type="checkbox"/>
             <label class="mission-text" :for="item.id" v-if="item.id !== cacheMission.id"
@@ -68,15 +69,10 @@
               @blur="finishEdit(item)"/>
               <span class="edit-hint">點擊周遭完成編輯</span>
             </div>
-            <div class="btn-group">
-              <a href="#" class="btn-drag mission-btn btn-hide"
-              @click.prevent></a>
-              <a href="#" class="btn-edit mission-btn btn-hide"
-              @click.prevent="editMission(item)"></a>
-              <a href="#" class="btn-delete mission-btn btn-hide"
-              @click.prevent="deleteMission(item)">×</a>
-              <a href="#" class="btn-start-count mission-btn"
-              @click.prevent="addToDoing(item)"></a>
+            <div>
+              <div class="pomodoro-qty" v-for="(el, key) in item.pomodoros" :key="key">
+                  {{item.pomodoros}}
+              </div>
             </div>
           </li>
         </draggable>
@@ -106,6 +102,7 @@ export default {
       'cacheMission',
       'cacheMissionTitle',
       'missions',
+      'doingMission',
     ]),
   },
   methods: {
@@ -135,8 +132,11 @@ export default {
       $('#done-missions').fadeToggle();
       $('#btn-done-dropdown').toggleClass('turn-opposite');
     },
+    // addToDoing(el) {
+    //   this.$store.dispatch('addToDoing', el);
+    // },
     addToDoing(el) {
-      this.$store.dispatch('addToDoing', el);
+      this.$bus.$emit('addToDoing', el);
     },
   },
   components: {

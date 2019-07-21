@@ -75,7 +75,22 @@
       &:hover > .btn-group > .btn-hide{
         opacity: 1 !important;
       }
+      overflow: hidden;
+      white-space: nowrap;
     }
+
+    .pomodoro-qty{
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      margin: 0 0.1rem;
+      background: $bg-light;
+      border-radius: 50%;
+      text-indent: 101%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    
     .mission-text {
       @include d-flex(row, flex-start) {
         cursor: pointer;

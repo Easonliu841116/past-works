@@ -2,7 +2,7 @@
   font-weight: bold;
   width: 445px;
   color: $font-color-light;
-  
+
   .ringtone-title {
     @include d-flex(row, space-between) {
       padding: 0.5rem 1rem;
@@ -21,10 +21,18 @@
       @include d-flex(row, space-between, flex-start) {
         padding: 0.5rem 0;
       }
+      .stop-play {
+        opacity: 0;
+        margin-left: 1rem;
+      }
+      
       .ringtone-text {
         @include d-flex(row, flex-start) {
           cursor: pointer;
           transition: $transition-normal;
+        }
+        &:hover > .stop-play {
+          opacity: 1;
         }
       }
       .ringtone-selector {
@@ -61,4 +69,5 @@
       }
     }
   }
+
 }

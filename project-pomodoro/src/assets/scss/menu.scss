@@ -74,6 +74,10 @@
           background-color: $bg-dark;
         }
 
+        .secondary-border{
+          border: 2px solid $bg-secondary !important;
+        }
+
         .btn-control-container {
           @include d-flex {
             width: 96px;

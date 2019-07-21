@@ -7,12 +7,24 @@
   position: relative;
 }
 
+.font-color-muted{
+  color: $font-color-muted !important;
+}
+
 .line-through{
   text-decoration: line-through;
 }
 
+.bg-primary{
+  background-color: $bg-primary !important;
+}
+
 .bg-secondary{
   background-color: $bg-secondary !important;
+}
+
+.bg-light{
+  background-color: $bg-light !important;
 }
 
 .font-color-primary{

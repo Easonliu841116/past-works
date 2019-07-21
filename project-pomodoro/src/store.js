@@ -13,6 +13,11 @@ export default new Vuex.Store({
     cacheMission: {},
     doingMission: [],
     cacheMissionTitle: '',
+    alertSound: {
+      workAlert: 'default',
+      breakAlert: 'default',
+    },
+    pomodoroQty: 0,
   },
   getters: {
     missions(state) {
@@ -37,6 +42,7 @@ export default new Vuex.Store({
           missionTitle: value,
           id: Math.floor(Date.now()),
           completed: false,
+          pomodoros: 0,
         };
         state.missions.push(obj);
       }
@@ -83,6 +89,18 @@ export default new Vuex.Store({
     COUNTCONTROLLER(state) {
       state.timer.isPaused = !state.timer.isPaused;
     },
+    SOUND(state, { el, type }) {
+      if (type === 1) {
+        state.alertSound.workAlert = el;
+      }
+      if (type === 2) {
+        state.alertSound.breakAlert = el;
+      }
+    },
+    POMODORO(state, payload) {
+      payload.pomodoros += 1;
+      state.pomodoroQty += 1;
+    },
     updateField,
   },
   actions: {
@@ -108,6 +126,12 @@ export default new Vuex.Store({
     },
     addToDoing(context, payload) {
       context.commit('DOINGMISSION', payload);
+    },
+    changeSound(context, { el, type }) {
+      context.commit('SOUND', { el, type });
+    },
+    addPomodoro(context, payload) {
+      context.commit('POMODORO', payload);
     },
   },
 });
