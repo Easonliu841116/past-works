@@ -13,7 +13,7 @@
           </li>
         </ul>
         <ul>
-          <li class="analytics-data-title">TODAY</li>
+          <li class="analytics-data-title">WEEK</li>
           <li>
             <span class="analytics-data-qty">{{pomodoroQty}}</span>
             <span class="analytics-data-unit">/TOMATO</span>
