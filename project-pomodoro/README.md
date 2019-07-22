@@ -1,29 +1,24 @@
-# pomodoro
+# Pomodoro 番茄鐘
 
-## Project setup
-```
-npm install
-```
+**使用框架：** `Vue.js`
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![index](https://i.imgur.com/IcMdM2U.png "index")
 
-### Compiles and minifies for production
-```
-npm run build
-```
+#### 主要使用技術
+ `Vue CLI`  `Vue Router` `jQuery` `ES6` `SCSS`  `ESLint-Airbnb` `Webpack` `Evnet Bus` `Vuex`
 
-### Run your tests
-```
-npm run test
-```
+## 簡介
 
-### Lints and fixes files
-```
-npm run lint
-```
+本作品包含以下功能：
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### Todo-List 待辦事項
+
+![todolist](https://i.imgur.com/8qLrTat.png "todolist")
+
+可新增、刪除、編輯、拖曳、標示完成、直接新增項目至番茄鐘、紀錄番茄鐘使用數量。
+
+#### Pomodoro 番茄鐘
+
+![pomodoro](https://i.imgur.com/WvoxeAN.png "pomodoro")
+
+可新增、刪除、編輯、拖曳、標示完成、直接新增項目至番茄鐘、紀錄番茄鐘使用數量。
