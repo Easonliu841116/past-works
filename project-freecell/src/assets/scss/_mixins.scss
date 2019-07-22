@@ -1,0 +1,15 @@
+@mixin position-absolute($left:0, $top:0, $trans-left: 0, $trans-top: 0) {
+    position: absolute;
+    left: $left;
+    top: $top;
+    transform: translate($trans-left, $trans-top);
+    @content;
+}
+
+@mixin d-flex($direction: row, $major-axis: center, $vertical-axis:center){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $major-axis;
+    align-items: $vertical-axis;
+    @content;
+}
