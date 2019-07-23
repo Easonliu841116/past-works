@@ -1,36 +1,114 @@
-.c-container {
+// global
+.c-card {
+  width: 100px;
+  height: 140px;
+  border-radius: 5px;
+  background: $bg-dark;
+}
+
+.c-blank-deck-border {
+  border: $border-color-dark 1px solid;
+}
+
+.c-target-deck-shadow {
+  box-shadow: 0px 3px 14px $shadow-color;
+}
+
+.c-cards-border {
+  border: $border-color-light 1px solid;
+}
+
+.c-card-position-absolute {
+  position: absolute;
+}
+
+// layout
+.c-main-container {
+  font-family: $font-default;
   width: 1280px;
   height: 800px;
-  /* background: beige url('../assets/Images/background.svg') no-repeat 0 100%; */
-  background-color: $gray-200;
+  position: relative;
+  background: url("~@/assets/images/bg-main.svg") bottom / contain no-repeat;
 
-  .c-slot-container {
-    @include d-flex(row, space-between) {
-      width: 1160px;
-      height: 140px;
-      padding-top: 155px;
+  .logo {
+    @include position-absolute(60px, 45px) {
+      width: 180px;
+      height: 45px;
+      text-indent: 101%;
+      white-space: nowrap;
+      overflow: hidden;
+      background: url("~@/assets/images/logo.svg") center / cover no-repeat;
+    }
+  }
+
+  .settings-container {
+    @include position-absolute(1040px, 30px) {
+      @include d-flex(row) {
+        width: 180px;
+      }
     }
 
-    .c-slot-panel {
+    .setting {
+      display: block;
+      width: 60px;
+      height: 70px;
+      border-radius: 5px;
+      line-height: 100px;
+      text-decoration: none;
+      color: $font-color-dark;
+      &:hover {
+        background-color: $bg-dark;
+      }
+      &:active {
+        background-color: darken($bg-dark, 10%);
+      }
+    }
+
+    .bg-reset {
+      background: url("~@/assets/images/reset.svg") 50% 25% / 40% no-repeat;
+    }
+
+    .bg-pre_step {
+      background: url("~@/assets/images/pre-step.svg") 50% 25% / 40% no-repeat;
+    }
+
+    .bg-pause {
+      background: url("~@/assets/images/pause.svg") 50% 25% / 40% no-repeat;
+    }
+  }
+
+  .c-decks-container {
+    @include position-absolute(60px, 155px) {
       @include d-flex(row, space-between) {
-        display: flex;
+        width: 1160px;
+        height: 140px;
+      }
+    }
+
+    .c-deck-panel {
+      @include d-flex(row, space-between) {
         width: 490px;
         height: 140px;
       }
+    }
+  }
+  .c-cards-container {
+    @include position-absolute(60px, 325px) {
+      @include d-flex(row, space-between) {
+        width: 1160px;
+        height: 320px;
+      }
+    }
 
-      .c-slot {
-        background: #f7f6f5;
+    .c-cards-panel {
+      @include d-flex(row, space-between, flex-start) {
+        width: 490px;
+        height: 320px;
+      }
+
+      .c-card-column {
+        height: 320px;
         width: 100px;
-        height: 140px;
-      }
-
-      .c-blank {
-        border-radius: 5px;
-        border: $border-color 1px solid;
-      }
-
-      .c-target {
-        box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.16);
       }
     }
   }
