@@ -55,18 +55,39 @@ export default {
     };
   },
   methods: {
-    // 以 7/6 的方式發牌，牌的內容不重複
+    // 預設三種發牌方式
     deal() {
       const vm = this;
       const tempDeck = [...vm.shuffledCard];
-      vm.decks.base.map((el, index) => {
-        if (index % 2 === 0) {
-          el.push(tempDeck.splice(0, 7));
-        } else {
-          el.push(tempDeck.splice(0, 6));
-        }
-        return vm.decks.base;
-      });
+      const randomNum = Math.floor(Math.random() * 3);
+      if (randomNum === 1) {
+        vm.decks.base.map((el, index) => {
+          if (index % 2 === 0) {
+            el.push(tempDeck.splice(0, 7));
+          } else {
+            el.push(tempDeck.splice(0, 6));
+          }
+          return vm.decks.base;
+        });
+      } else if (randomNum === 2) {
+        vm.decks.base.map((el, index) => {
+          if (index <= 3) {
+            el.push(tempDeck.splice(0, 7));
+          } else {
+            el.push(tempDeck.splice(0, 6));
+          }
+          return vm.decks.base;
+        });
+      } else {
+        vm.decks.base.map((el, index) => {
+          if (index <= 3) {
+            el.push(tempDeck.splice(0, 6));
+          } else {
+            el.push(tempDeck.splice(0, 7));
+          }
+          return vm.decks.base;
+        });
+      }
       console.log(tempDeck);
     },
   },
@@ -87,9 +108,8 @@ export default {
     },
   },
   mounted() {
-    // console.log(this.shuffledCard);
     this.deal();
-    console.log(this.decks);
+    console.log(this.decks.base);
   },
 };
 </script>
