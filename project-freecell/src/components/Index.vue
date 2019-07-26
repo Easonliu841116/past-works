@@ -12,29 +12,45 @@
       <div class="c-decks-container">
         <div class="c-deck-panel" id="blank-deck">
           <div class="c-blank-deck-border c-card c-bg-deck" v-for="(item, key) in 4" :key="key">
-              1
           </div>
         </div>
         <div class="c-deck-panel" id="target-deck">
-          <div class="c-target-deck-shadow c-card" v-for="(item, key) in 4" :key="key">
-              2
+          <div class="c-target-deck-shadow c-card" v-for="(item, key) in 4" :key="key"
+          :class="{['c-target' + (key + 1)]: true}">
           </div>
         </div>
       </div>
       <div class="c-cards-container">
         <div class="c-cards-panel">
-          <div class="c-card-column" v-for="(item, key) in 4" :key="key">
-            <div class="c-card c-cards-border c-card-position-absolute"
-            v-for="(item, key) in 5" :key="key">
-              3
+          <div class="c-card-column" v-for="(item, itemKey) in 4" :key="itemKey">
+            <div v-for="(el, elKey) in decks.base[item - 1]" :key="elKey">
+              <div class="c-card c-cards-border c-card-position-absolute"
+              v-for="(card, cardKey) in el" :key="cardKey" :class="{[cardKey + 1]: true}">
+                <div class="num-wrapper" :id="card">
+                  <span class="text-left-top">{{card | CardNumberFilter}}</span>
+                  <span class="text-right-bottom">{{card | CardNumberFilter}}</span>
+                  <img class="img-left-top">
+                  <img class="img-right-bottom">
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        
+        弄出圖片 可參考
+
         <div class="c-cards-panel">
-          <div class="c-card-column" v-for="(item, key) in 4" :key="key">
-            <div class="c-card c-cards-border c-card-position-absolute"
-            v-for="(item, key) in 5" :key="key">
-              4
+          <div class="c-card-column" v-for="(item, itemKey) in 4" :key="itemKey">
+            <div v-for="(el, elKey) in decks.base[item + 3]" :key="elKey">
+              <div class="c-card c-cards-border c-card-position-absolute"
+              v-for="(card, cardKey) in el" :key="cardKey" :class="{[cardKey + 1]: true}">
+                <div class="num-wrapper" :id="card">
+                  <span class="text-left-top">{{card | CardNumberFilter}}</span>
+                  <span class="text-right-bottom">{{card | CardNumberFilter}}</span>
+                  <img class="img-left-top">
+                  <img class="img-right-bottom">
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -55,8 +71,7 @@ export default {
     };
   },
   methods: {
-    // 預設三種發牌方式
-    deal() {
+    deal() { // 預設三種發牌方式
       const vm = this;
       const tempDeck = [...vm.shuffledCard];
       const randomNum = Math.floor(Math.random() * 3);
@@ -88,14 +103,33 @@ export default {
           return vm.decks.base;
         });
       }
-      console.log(tempDeck);
+    },
+    changeCardStyle() { // 設定牌的樣式
+      const baseArray = Array.from(new Array(52)).map((el, key) => key + 1);
+      const basePositionArray = Array.from(new Array(7)).map((el, key) => key + 1);
+      baseArray.forEach((el) => {
+        const dom = document.getElementById(`${el}`);
+        if (el >= 14 && el <= 26) {
+          dom.style.color = '#f1697b';
+        } else if (el >= 27 && el <= 39) {
+          dom.style.color = '#f1697b';
+        }
+      });
+      basePositionArray.forEach((el) => {
+        const dom2 = [...document.getElementsByClassName(`${el}`)];
+        dom2.forEach((item) => {
+          item.style.top = `${Math.floor((Math.random() - 2) * 1000)}px`;
+          setTimeout(() => {
+            item.style.top = `${40 * (el - 1)}px`;
+          }, (el) * 75);
+        });
+      });
     },
   },
   computed: {
     // 亂數產生牌
     shuffledCard() {
-      // 快速產生 1 ~ 52 的陣列
-      const tempArray = Array.from(new Array(52)).map((el, key) => key + 1);
+      const baseArray = Array.from(new Array(52)).map((el, key) => key + 1);
       // Fisher–Yates shuffle 演算法(打亂牌組)
       const shuffle = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -104,12 +138,14 @@ export default {
         }
         return array;
       };
-      return shuffle(tempArray);
+      return shuffle(baseArray);
     },
   },
-  mounted() {
+  created() {
     this.deal();
-    console.log(this.decks.base);
+  },
+  mounted() {
+    this.changeCardStyle();
   },
 };
 </script>
