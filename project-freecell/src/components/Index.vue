@@ -36,9 +36,6 @@
             </div>
           </div>
         </div>
-        
-        弄出圖片 可參考
-
         <div class="c-cards-panel">
           <div class="c-card-column" v-for="(item, itemKey) in 4" :key="itemKey">
             <div v-for="(el, elKey) in decks.base[item + 3]" :key="elKey">
