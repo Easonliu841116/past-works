@@ -25,13 +25,8 @@
           <div class="c-card-column" v-for="(item, itemKey) in 4" :key="itemKey">
             <div v-for="(el, elKey) in decks.base[item - 1]" :key="elKey">
               <div class="c-card c-cards-border c-card-position-absolute"
-              v-for="(card, cardKey) in el" :key="cardKey" :class="{[cardKey + 1]: true}">
-                <div class="num-wrapper" :id="card">
-                  <span class="text-left-top">{{card | CardNumberFilter}}</span>
-                  <span class="text-right-bottom">{{card | CardNumberFilter}}</span>
-                  <img class="img-left-top">
-                  <img class="img-right-bottom">
-                </div>
+              v-for="(card, cardKey) in el" :key="cardKey"
+                :class="{[cardKey + 1]: true}" :id="card">
               </div>
             </div>
           </div>
@@ -40,13 +35,8 @@
           <div class="c-card-column" v-for="(item, itemKey) in 4" :key="itemKey">
             <div v-for="(el, elKey) in decks.base[item + 3]" :key="elKey">
               <div class="c-card c-cards-border c-card-position-absolute"
-              v-for="(card, cardKey) in el" :key="cardKey" :class="{[cardKey + 1]: true}">
-                <div class="num-wrapper" :id="card">
-                  <span class="text-left-top">{{card | CardNumberFilter}}</span>
-                  <span class="text-right-bottom">{{card | CardNumberFilter}}</span>
-                  <img class="img-left-top">
-                  <img class="img-right-bottom">
-                </div>
+              v-for="(card, cardKey) in el" :key="cardKey"
+                :class="{[cardKey + 1]: true}" :id="card">
               </div>
             </div>
           </div>
@@ -104,20 +94,32 @@ export default {
     changeCardStyle() { // 設定牌的樣式
       const baseArray = Array.from(new Array(52)).map((el, key) => key + 1);
       const basePositionArray = Array.from(new Array(7)).map((el, key) => key + 1);
+      let suit = '';
+      let src = '';
       baseArray.forEach((el) => {
         const dom = document.getElementById(`${el}`);
-        if (el >= 14 && el <= 26) {
-          dom.style.color = '#f1697b';
+        if (el <= 13) {
+          suit = 'spade';
+        } else if (el >= 14 && el <= 26) {
+          suit = 'heart';
         } else if (el >= 27 && el <= 39) {
-          dom.style.color = '#f1697b';
+          suit = 'diamond';
+        } else {
+          suit = 'club';
         }
+        // eslint-disable-next-line
+        src = require(`../assets/images/${suit}${el % 13}.png`);
+        dom.style.backgroundImage = `url(${src})`;
+        dom.style.backgroundSize = '90%';
+        dom.style.backgroundPosition = 'center center';
+        dom.style.backgroundRepeat = 'no-repeat';
       });
       basePositionArray.forEach((el) => {
         const dom2 = [...document.getElementsByClassName(`${el}`)];
         dom2.forEach((item) => {
           item.style.top = `${Math.floor((Math.random() - 2) * 1000)}px`;
           setTimeout(() => {
-            item.style.top = `${40 * (el - 1)}px`;
+            item.style.top = `${35 * (el - 1)}px`;
           }, (el) * 75);
         });
       });
