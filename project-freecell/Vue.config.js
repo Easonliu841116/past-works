@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/past-works/project-pomodoro/dist/',
+    publicPath: '/past-works/project-freecell/dist/',
 }
