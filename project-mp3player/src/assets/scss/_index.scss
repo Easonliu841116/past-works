@@ -1,0 +1,30 @@
+.main-container {
+  width: 1280px;
+  height: 800px;
+  background-color: #ff8c6e;
+  margin: 0 auto;
+  position: relative;
+}
+
+.player-back {
+  @include position-absolute(240px, 15px) {
+    width: 783px;
+    height: 783px;
+    background: url("~@/assets/image/player-back.svg") center center/ cover no-repeat;
+  }
+}
+
+.player-container {
+  @include position-absolute(256px, 28px) {
+    width: 732px;
+    height: 732px;
+    background-color: #fff;
+    border: 3px solid #000;
+  }
+}
+
+.player-border{
+  @include position-absolute(0, 0) {
+    z-index: 999 !important;
+  }
+}
